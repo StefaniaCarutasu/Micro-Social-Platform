@@ -1,40 +1,34 @@
-﻿
+﻿@model IncercareCuBd.Models.Article
+
+
 @{
     ViewBag.Title = "Edit";
 }
 
 <h2>Modificare articol</h2>
 
-<form method="post" action="/Articles/Edit/@ViewBag.Article.Id">
+<form method="post" action="/Articles/Edit/@Model.Id">
+
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
-    <label>Titlu articol</label>
+    @Html.Hidden("Id")
+
+    @Html.Label("Title", "Titlu Articol")
     <br />
-    <input type="text" name="Title" value="@ViewBag.Article.Title" />
+    @Html.EditorFor(m => m.Title)
+    <br /><br />
+
+    @Html.Label("Content", "Continut Articol")
+    <br />
+    @Html.Editor("Content")
+    <br /><br />
+
+    @Html.HiddenFor(m => m.Date)
+    @Html.Label("Selectati categoria")
+
+    @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"), "Selectati categoria", new { @class = "form-control" })
+
     <br />
 
-    <label>Continut articol</label>
-    <br />
-    <textarea type="text" name="Content">@ViewBag.Article.Content</textarea>
-    <br />
-
-    <input type="hidden" name="Date" value="@DateTime.Now" />
-    <br />
-
-    <label>Selectati categoria</label>
-    <br />
-    <select name="CategoryId">
-        @foreach (var category in ViewBag.Categories)
-        {
-            <option @{if (category.CategoryId == ViewBag.Category.CategoryId) { @: selected="selected"
-                    } }
-                    value="@category.CategoryId">
-                @category.CategoryName
-            </option>
-        }
-    </select>
-    <br />
-    <br />
-
-    <button type="submit">Modifica articol</button>
+    <button class="btn btn-success" type="submit">Modifica articol</button>
 </form>
