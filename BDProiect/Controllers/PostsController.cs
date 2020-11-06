@@ -13,8 +13,8 @@ namespace BDProiect.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            var post = db.Posts;
-            ViewBag.Posts = post;
+            var posts = db.Posts;
+            ViewBag.Posts = posts;
             return View();
         }
 
@@ -27,21 +27,24 @@ namespace BDProiect.Controllers
 
         public ActionResult New()
         {
-            return View();
+            Post post = new Post();
+            return View(post);
         }
 
         [HttpPost]
         public ActionResult New (Post post)
         {
+            post.Date = DateTime.Now;
             try
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
+                TempData["message"] = "Articolul a fost adaugat";
                 return RedirectToAction("Index");
             }
             catch (Exception e)
             {
-                return View();
+                return View(post);
             }
         }
 

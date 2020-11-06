@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Adaugare postare</h2>
+
+<form method="post" action="/Posts/New">
+    @Html.Label("Content", "Continut articol")
+    <br />
+    @Html.TextArea("Content", null, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-success" type="submit">Adauga postare</button>
+</form>

@@ -173,6 +173,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Posts\New.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -187,6 +188,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010311339453_Initial.resx">
@@ -209,7 +211,6 @@
   <ItemGroup>
     <Folder Include="Views\Comments\" />
     <Folder Include="Views\Groups\" />
-    <Folder Include="Views\Posts\" />
     <Folder Include="Views\Users\" />
   </ItemGroup>
   <PropertyGroup>
