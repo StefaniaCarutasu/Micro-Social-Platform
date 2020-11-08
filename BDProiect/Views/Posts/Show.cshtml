@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Show";
+}
+
+<a href="/Posts/Index">Inapoi la postari</a>
+<br />
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        Postare: <strong>@ViewBag.Post.Content</strong>
+        <br />
+        <span class="label label-success">@ViewBag.Post.Date</span>
+        <a class="btn btn-success pull-left" href="/Posts/Edit/@ViewBag.Post.PostId">Modifica articol</a>
+        <form method="post" action="/Posts/Delete/@ViewBag.Post.PostId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button class="btn btn-danger pull-right" type="submit">
+                Sterge
+                postare
+            </button>
+        </form>
+    </div>
+</div>
+<h2>Show</h2>
+

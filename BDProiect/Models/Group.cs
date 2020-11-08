@@ -14,6 +14,5 @@ namespace BDProiect.Models
         public string GroupName { get; set; }
 
         public virtual ICollection<Post> Posts { get; set; }
-        public virtual ICollection<User> Users { get; set; }
     }
 }

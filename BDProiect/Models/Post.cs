@@ -13,7 +13,6 @@ namespace BDProiect.Models
         [Required]
         public string Content { get; set; }
         public DateTime Date { get; set; }
-        [Required]
        
         public int GroupId { get; set; }
 
