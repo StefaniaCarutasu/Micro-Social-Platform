@@ -10,7 +10,8 @@ namespace BDProiect.Models
     {
         public AppContext(): base("DBConnectionString") 
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppContext, BDProiect.Migrations.Configuration>("DBConnectionString"));
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<AppContext, 
+            BDProiect.Migrations.Configuration>("DBConnectionString"));
         }
         
         public DbSet<Post> Posts { get; set; }

@@ -190,6 +190,9 @@
     <Content Include="Views\Posts\Show.cshtml" />
     <Content Include="Views\Posts\Edit.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\Groups\New.cshtml" />
+    <Content Include="Views\Groups\Show.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010311339453_Initial.resx">
@@ -210,7 +213,6 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Groups\" />
     <Folder Include="Views\Users\" />
   </ItemGroup>
   <PropertyGroup>

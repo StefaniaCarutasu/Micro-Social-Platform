@@ -194,6 +194,7 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\New.cshtml" />
     <Content Include="Views\Categories\Show.cshtml" />
+    <Content Include="Views\Shared\ArticleInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202010271110506_Initial.resx">

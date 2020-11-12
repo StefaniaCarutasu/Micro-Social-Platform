@@ -10,7 +10,8 @@ namespace BDProiect.Models
     {
         [Key]
         public int CommentId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Continutul este obligatoriu!")]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         public DateTime Date { get; set; }
         public int PostId { get; set; }

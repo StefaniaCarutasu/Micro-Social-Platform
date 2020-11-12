@@ -10,13 +10,12 @@ namespace BDProiect.Models
     {
         [Key]
         public int PostId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Continutul este obligatoriu!")]
+        [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         public DateTime Date { get; set; }
-       
-        public int GroupId { get; set; }
 
-       
+        public int GroupId { get; set; }
         public virtual Group Group { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }

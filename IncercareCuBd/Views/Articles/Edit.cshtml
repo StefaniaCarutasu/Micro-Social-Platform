@@ -5,30 +5,32 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Modificare articol</h2>
 
-<form method="post" action="/Articles/Edit/@Model.Id">
-
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Articles"))
+{
     @Html.HttpMethodOverride(HttpVerbs.Put)
-
-    @Html.Hidden("Id")
+    <br />
+    @Html.HiddenFor(m => m.Id)
 
     @Html.Label("Title", "Titlu Articol")
     <br />
     @Html.EditorFor(m => m.Title)
-    <br /><br />
+    @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
+    <br />
+    <br />
 
     @Html.Label("Content", "Continut Articol")
     <br />
-    @Html.Editor("Content")
-    <br /><br />
+    @Html.Editor("Content", new { htmlAtributes = new { @class = "form-control" } })
+    @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+    <br />
+    <br />
 
-    @Html.HiddenFor(m => m.Date)
     @Html.Label("Selectati categoria")
 
     @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"), "Selectati categoria", new { @class = "form-control" })
-
+    @Html.ValidationMessage("Category", null, new { @class = "text-danger" })
     <br />
 
     <button class="btn btn-success" type="submit">Modifica articol</button>
-</form>
+}

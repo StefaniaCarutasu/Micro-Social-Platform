@@ -13,7 +13,7 @@ namespace BDProiect.Controllers
         // GET: Posts
         public ActionResult Index()
         {
-            var posts = db.Posts;
+            var posts = db.Posts.Include("Group");
             ViewBag.Posts = posts;
             if (TempData.ContainsKey("message"))
             {
@@ -26,6 +26,8 @@ namespace BDProiect.Controllers
         {
             Post post = db.Posts.Find(id);
             ViewBag.Post = post;
+            ViewBag.Group = post.Group;
+
             return View();
         }
 
@@ -42,10 +44,18 @@ namespace BDProiect.Controllers
             post.GroupId = 1;
             try
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
-                TempData["message"] = "Articolul a fost adaugat";
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    db.Posts.Add(post);
+                    db.SaveChanges();
+                    TempData["message"] = "Postarea a fost adaugata";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(post);
+                }
+               
             }
             catch (Exception e)
             {
@@ -71,7 +81,7 @@ namespace BDProiect.Controllers
                     post.Date = requestPost.Date;
                     post.GroupId = requestPost.GroupId;
                     db.SaveChanges();
-                    TempData["message"] = "Articolul a fost editat cu succes";
+                    TempData["message"] = "Postarea a fost editat cu succes";
                     return RedirectToAction("Index");
 
                 }

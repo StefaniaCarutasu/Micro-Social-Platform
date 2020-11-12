@@ -9,10 +9,14 @@ namespace BDProiect.Controllers
 {
     public class GroupsController : Controller
     {
-        private Models.AppContext db = new Models.AppContext();
+        private BDProiect.Models.AppContext db = new BDProiect.Models.AppContext();
         // GET: Groups
         public ActionResult Index()
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.message = TempData["message"].ToString();
+            }
             var groups = db.Groups;
             ViewBag.Groups = groups;
             return View();
@@ -22,7 +26,7 @@ namespace BDProiect.Controllers
         {
             Group group = db.Groups.Find(id);
             ViewBag.Group = group;
-            return View();
+            return View(group);
         }
 
         public ActionResult New()

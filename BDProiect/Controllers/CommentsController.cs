@@ -17,6 +17,12 @@ namespace BDProiect.Controllers
             return View();
         }
 
+        public ActionResult New()
+        {
+            Comment comment = new Comment();
+            return View(comment);
+        }
+
         [HttpPost]
         public ActionResult New(Comment comment)
         {
@@ -30,7 +36,7 @@ namespace BDProiect.Controllers
             catch(Exception e)
             {
                 ViewBag.ErrorMessage = e.Message;
-                return View("Error");
+                return Redirect("/Posts/Show/" + comment.PostId);
             }
         }
 

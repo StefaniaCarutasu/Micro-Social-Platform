@@ -6,7 +6,7 @@
 <h2>Editare comentariu</h2>
 <form method="post" action="/Comments/Edit/@ViewBag.Comment.CommentId">
     @Html.HttpMethodOverride(HttpVerbs.Put)
-    <label>Continut comentariu</label>
+    @Html.Label("Content", "Editeaza continut comentariu")
     <br />
     <textarea name="Content">@ViewBag.Comment.Content</textarea>
     <br />

@@ -43,13 +43,21 @@ namespace IncercareCuBd.Controllers
         [HttpPost]
         public ActionResult New(Article article)
         {
+            article.Categ = GetAllCategories();
             article.Date = DateTime.Now;
             try
             {
-                db.Articles.Add(article);
-                db.SaveChanges();
-                TempData["message"] = "Articolul a fost adaugat!";
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    db.Articles.Add(article);
+                    db.SaveChanges();
+                    TempData["message"] = "Articolul a fost adaugat!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(article);
+                }
             }
             catch (Exception e)
             {
@@ -68,21 +76,32 @@ namespace IncercareCuBd.Controllers
         [HttpPut]
         public ActionResult Edit(int id, Article requestArticle)
         {
+            requestArticle.Categ = GetAllCategories();
             try
             {
-                Article article = db.Articles.Find(id);
-                if (TryUpdateModel(article))
+                if(ModelState.IsValid)
                 {
-                    //article = requestArticle;
-                    article.Title = requestArticle.Title;
-                    article.Content = requestArticle.Content;
-                    article.Date = requestArticle.Date;
-                    article.CategoryId = requestArticle.CategoryId;
-                    db.SaveChanges();
-                    TempData["message"] = "Articolul a fost editat cu succes!";
-                    return RedirectToAction("Index");
+                    Article article = db.Articles.Find(id);
+                    if (TryUpdateModel(article))
+                    {
+                        //article = requestArticle;
+                        article.Title = requestArticle.Title;
+                        article.Content = requestArticle.Content;
+                        article.Date = requestArticle.Date;
+                        article.CategoryId = requestArticle.CategoryId;
+                        db.SaveChanges();
+                        TempData["message"] = "Articolul a fost editat cu succes!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return View(requestArticle);
+                    }
                 }
-                return View(requestArticle);
+                else
+                {
+                    return View(requestArticle);
+                }
             }
             catch (Exception e)
             {
