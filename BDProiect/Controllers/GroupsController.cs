@@ -39,9 +39,18 @@ namespace BDProiect.Controllers
         {
             try
             {
-                db.Groups.Add(gr);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if(ModelState.IsValid)
+                {
+                    db.Groups.Add(gr);
+                    db.SaveChanges();
+                    TempData["message"] = "Grupul a fost adaugat!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(gr);
+                }
+               
             }
             catch (Exception e)
             {
