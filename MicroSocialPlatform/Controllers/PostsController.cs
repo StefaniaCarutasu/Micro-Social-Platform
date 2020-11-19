@@ -16,7 +16,7 @@ namespace BDProiect.Controllers
         [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Index()
         {
-            var posts = db.Posts.Include("Group");
+            var posts = db.Posts.Include("Group").Include("User");
             ViewBag.Posts = posts;
             if (TempData.ContainsKey("message"))
             {
@@ -29,13 +29,20 @@ namespace BDProiect.Controllers
         public ActionResult Show(int id)
         {
             Post post = db.Posts.Find(id);
+            ViewBag.afisareButoane = false;
+            ViewBag.UserId = User.Identity.GetUserId();
+
+            if(User.IsInRole("Editor")||User.IsInRole("Admin")||post.UserId==User.Identity.GetUserId())
+            {
+                ViewBag.afisareButoane = true;
+            }
             ViewBag.Post = post;
             ViewBag.Group = post.Group;
 
-            return View();
+            return View(post);
         }
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New()
         {
             Post post = new Post();
@@ -44,7 +51,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New (Post post)
         {
             post.Date = DateTime.Now;
@@ -73,7 +80,7 @@ namespace BDProiect.Controllers
             }
         }
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Edit(int id)
         {
             Post post = db.Posts.Find(id);
@@ -89,7 +96,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Edit(int id, Post requestPost)
         {
             try
@@ -115,7 +122,7 @@ namespace BDProiect.Controllers
 
 
         [HttpDelete]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Delete(int id)
         {
             Post post = db.Posts.Find(id);

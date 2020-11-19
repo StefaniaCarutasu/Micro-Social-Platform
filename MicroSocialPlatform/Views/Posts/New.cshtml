@@ -11,7 +11,8 @@
 
 @using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
 {
-   
+    @Html.Hidden("UserId")
+
     @Html.Label("Content", "Continut postare")
     <br />
     @Html.TextArea("Content", null, new { @class = "form-control" })

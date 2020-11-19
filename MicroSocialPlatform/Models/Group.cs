@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MicroSocialPlatform.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace BDProiect.Models
         [StringLength(100, ErrorMessage = "Descrierea grupului nu poate avea mai mult de 100 de caractere")]
         public string GroupDescription { get; set; }
 
+        public virtual ICollection<ApplicationUser> Users { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

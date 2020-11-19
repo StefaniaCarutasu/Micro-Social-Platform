@@ -20,12 +20,34 @@
                 @Html.ActionLink("CarutEscu", "Index", "Posts", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
-                    <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
-                    <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
-                    <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
-                </ul>
+                @if (User.IsInRole("Admin"))
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
+                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
+                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
+                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
+                    </ul>
+                }
+                @if (User.IsInRole("Editor"))
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
+                
+                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
+                       
+                    </ul>
+                }
+                @if (User.IsInRole("User"))
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
+                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
+                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
+                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
+                    </ul>
+                }
+
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

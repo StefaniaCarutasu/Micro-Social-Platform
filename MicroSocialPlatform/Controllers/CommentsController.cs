@@ -1,5 +1,6 @@
 ﻿using BDProiect.Models;
 using MicroSocialPlatform.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,18 +20,20 @@ namespace BDProiect.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New()
         {
             Comment comment = new Comment();
+            comment.UserId = User.Identity.GetUserId();
             return View(comment);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New(Comment comment)
         {
             comment.Date = DateTime.Now;
+            comment.UserId = User.Identity.GetUserId();
             try
             {
                 db.Comments.Add(comment);
@@ -45,36 +48,66 @@ namespace BDProiect.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Delete(int id)
         {
             Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
-            return Redirect("/Posts/Show/" + comment.PostId);
+            if (comment.UserId == User.Identity.GetUserId() || comment.Post.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                return Redirect("/Posts/Show/" + comment.PostId);
+            }
+            else
+            {
+                return Redirect("/Posts/Show/" + comment.PostId); 
+            }
         }
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Edit(int id)
         {
             Comment comment = db.Comments.Find(id);
             ViewBag.Comment = comment;
-            return View();
+            if (comment.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Posts/Show/" + comment.PostId);
+
+            }
         }
 
+
         [HttpPut]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult Edit(int id, Comment reqComment)
         {
             try
             {
-                Comment comm = db.Comments.Find(id);
-                if(TryUpdateModel(comm))
+                if (ModelState.IsValid)
                 {
-                    comm.Content = reqComment.Content;
-                    db.SaveChanges();
+                    Comment comm = db.Comments.Find(id);
+                    if (comm.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+                    {
+                        if (TryUpdateModel(comm))
+                        {
+                            comm.Content = reqComment.Content;
+                            db.SaveChanges();
+                        }
+                        return Redirect("/Posts/Show/" + comm.PostId);
+                    }
+                    else
+                    {
+                        return Redirect("/Posts/Show/" + comm.PostId);
+                    }
                 }
-                return Redirect("/Posts/Show/" + comm.PostId);
+                else
+                {
+                    return View(reqComment);
+                }
             }
             catch(Exception e)
             {
