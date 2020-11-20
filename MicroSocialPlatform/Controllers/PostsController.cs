@@ -58,7 +58,11 @@ namespace BDProiect.Controllers
 
             post.UserId = User.Identity.GetUserId();
 
-            post.GroupId = 1;
+            if(post.GroupId == 0)
+            {
+                post.GroupId = 1;
+            }
+            
             try
             {
                 if(ModelState.IsValid)
