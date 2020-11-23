@@ -70,7 +70,10 @@ namespace BDProiect.Controllers
                     db.Posts.Add(post);
                     db.SaveChanges();
                     TempData["message"] = "Postarea a fost adaugata";
-                    return RedirectToAction("Index");
+                    if(post.GroupId == 1)
+                        return RedirectToAction("Index");
+                    else
+                        return Redirect("/Groups/Show/" + @post.GroupId);
                 }
                 else
                 {

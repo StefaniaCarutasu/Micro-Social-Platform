@@ -1,5 +1,6 @@
 ﻿using BDProiect.Models;
 using MicroSocialPlatform.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,13 @@ namespace BDProiect.Controllers
         public ActionResult Show(int id)
         {
             Group group = db.Groups.Find(id);
+            ViewBag.afisareButoane = false;
+            ViewBag.UserId = User.Identity.GetUserId();
+            if (User.IsInRole("Editor") || User.IsInRole("Admin") || group.UserId == User.Identity.GetUserId())
+            {
+                ViewBag.afisareButoane = true;
+            }
+         
             ViewBag.Group = group;
             return View(group);
         }
@@ -63,6 +71,15 @@ namespace BDProiect.Controllers
             }
         }
 
-
+        //public ActionResult NewMember(ApplicationUser user, int groupId)
+        //{
+        //    Group group = db.Groups.Find(groupId);
+        //    group.Users.Add(user);
+        //    db.SaveChanges();
+            
+        //    return Redirect("/Groups/Show/" + @group.GroupId);
+        //}
     }
+
+   
 }
