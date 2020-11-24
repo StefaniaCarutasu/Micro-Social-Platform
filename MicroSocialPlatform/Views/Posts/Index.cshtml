@@ -24,12 +24,12 @@
         <!--<span class="label label-success">@post.Date</span>-->
         @if (post.GroupId == 1)
         {
-            <i class="glyphicon glyphicon-user"></i> <i>articol scris de</i>
+            <i class="glyphicon glyphicon-user"></i> <i>postare scrisa de</i>
             <strong> @post.User.UserName </strong>
         }
         else
         {
-            <i class="glyphicon glyphicon-user"></i> <i>articol scris de</i>
+            <i class="glyphicon glyphicon-user"></i> <i>postare scrisa de</i>
             <strong> @post.User.UserName </strong> <i> in <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
         }
 

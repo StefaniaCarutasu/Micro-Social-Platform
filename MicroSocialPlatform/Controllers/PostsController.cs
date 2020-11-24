@@ -115,7 +115,7 @@ namespace BDProiect.Controllers
                     post.Date = requestPost.Date;
                     post.GroupId = requestPost.GroupId;
                     db.SaveChanges();
-                    TempData["message"] = "Postarea a fost editat cu succes";
+                    TempData["message"] = "Postarea a fost editata cu succes";
                     return RedirectToAction("Index");
 
                 }

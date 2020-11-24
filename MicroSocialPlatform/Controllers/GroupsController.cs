@@ -71,12 +71,69 @@ namespace BDProiect.Controllers
             }
         }
 
+        [Authorize(Roles = "Editor, Admin")]
+        public ActionResult Edit (int id)
+        {
+            Group gr = db.Groups.Find(id);
+            if(gr.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                return View(gr);
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui grup care nu va apartine!";
+                return RedirectToAction("Index");
+            }
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Editor, Admin")]
+        public ActionResult Edit (int id, Group requestGroup)
+        {
+            try
+            {
+                Group gr = db.Groups.Find(id);
+                if(TryUpdateModel(gr))
+                {
+                    gr.GroupName = requestGroup.GroupName;
+                    gr.GroupDescription = requestGroup.GroupDescription;
+                    db.SaveChanges();
+                    TempData["message"] = "Grupul a fost editat cu succes";
+                    return RedirectToAction("Index");
+                }
+                return View(requestGroup);
+            }
+            catch(Exception e)
+            {
+                return View(requestGroup);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize(Roles = "Editor, Admin")]
+        public ActionResult Delete (int id)
+        {
+            Group gr = db.Groups.Find(id);
+            if (gr.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                db.Groups.Remove(gr);
+                db.SaveChanges();
+                TempData["message"] = "Grupul a fost sters";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa stergeti un grup care nu va apartine";
+                return RedirectToAction("Index");
+            }
+        }
+
         //public ActionResult NewMember(ApplicationUser user, int groupId)
         //{
         //    Group group = db.Groups.Find(groupId);
         //    group.Users.Add(user);
         //    db.SaveChanges();
-            
+
         //    return Redirect("/Groups/Show/" + @group.GroupId);
         //}
     }

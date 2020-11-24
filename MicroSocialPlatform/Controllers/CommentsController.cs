@@ -20,14 +20,6 @@ namespace BDProiect.Controllers
             return View();
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
-        public ActionResult New()
-        {
-            Comment comment = new Comment();
-            comment.UserId = User.Identity.GetUserId();
-            return View(comment);
-        }
-
         [HttpPost]
         [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New(Comment comment)
