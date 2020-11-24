@@ -32,9 +32,46 @@ namespace Laborator5App.Controllers
         public ActionResult Show(int id)
         {
             Article article = db.Articles.Find(id);
+
+            ViewBag.afisareButoane = false;
+            if(User.IsInRole("Editor") || User.IsInRole("Admin"))
+            {
+                ViewBag.afisareButoane = true;
+            }
+            ViewBag.esteAdmin = User.IsInRole("Admin");
+            ViewBag.utilizatorCurent = User.Identity.GetUserId();
+
             return View(article);
 
         }
+
+        [HttpPost]
+        [Authorize(Roles = "User, Editor, Admin")]
+        public ActionResult Show (Comment comm)
+        {
+            comm.Date = DateTime.Now;
+
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    db.Comments.Add(comm);
+                    db.SaveChanges();
+                    return Redirect("/Articles/Show/" + comm.ArticleId);
+
+                }
+                else
+                {
+                    Article a = db.Articles.Find(comm.ArticleId);
+                    return View(a);
+                }
+            }
+            catch(Exception e)
+            {
+
+            }
+        }
+
         [Authorize(Roles = "Editor,Admin")]
         public ActionResult New()
         {
@@ -83,6 +120,16 @@ namespace Laborator5App.Controllers
         {
             Article article = db.Articles.Find(id);
             article.Categ = GetAllCategories();
+
+            if (article.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+                return View(article);
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui articol care nu va apartine";
+                return RedirectToAction("Index");
+            }
             return View(article);
         }
 
@@ -90,23 +137,32 @@ namespace Laborator5App.Controllers
         [Authorize(Roles = "Editor,Admin")]
         public ActionResult Edit(int id, Article requestArticle)
         {
-            requestArticle.Categ = GetAllCategories();
+            //requestArticle.Categ = GetAllCategories();
 
             try
             {
                 if (ModelState.IsValid)
                 {
                     Article article = db.Articles.Find(id);
-                     
-                    if (TryUpdateModel(article))
+
+                    if (article.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
                     {
-                        article.Title = requestArticle.Title;
-                        article.Content = requestArticle.Content;
-                        article.CategoryId = requestArticle.CategoryId;
-                        db.SaveChanges();
-                        TempData["message"] = "Articolul a fost modificat";
+                        if (TryUpdateModel(article))
+                        {
+                            article.Title = requestArticle.Title;
+                            article.Content = requestArticle.Content;
+                            article.CategoryId = requestArticle.CategoryId;
+                            db.SaveChanges();
+                            TempData["message"] = "Articolul a fost modificat";
+                        }
+                        return RedirectToAction("Index");
                     }
-                    return RedirectToAction("Index");
+                    else
+                    {
+                        TempData["message"] = "Nu aveti dreptul sa faceti modificari asupra unui articol care nu va apartine";
+                        return RedirectToAction("Index");
+                    }
+                       
                 }
                 else
                 {
@@ -116,6 +172,7 @@ namespace Laborator5App.Controllers
             }
             catch (Exception e)
             {
+                requestArticle.Categ = GetAllCategories();
                 return View(requestArticle);
             }
         }
@@ -125,10 +182,19 @@ namespace Laborator5App.Controllers
         public ActionResult Delete(int id)
         {
             Article article = db.Articles.Find(id);
-            db.Articles.Remove(article);
-            db.SaveChanges();
-            TempData["message"] = "Articolul a fost sters";
-            return RedirectToAction("Index");
+            if (article.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+            {
+
+                db.Articles.Remove(article);
+                db.SaveChanges();
+                TempData["message"] = "Articolul a fost sters";
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa stergeti un articol care nu va apartine";
+                return RedirectToAction("Index");
+            }
         }
 
         [NonAction]

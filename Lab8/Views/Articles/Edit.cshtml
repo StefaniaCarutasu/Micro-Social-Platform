@@ -1,11 +1,10 @@
 ﻿@model Laborator5App.Models.Article
 
 
-@using (Html.BeginForm(actionName: "Edit", controllerName: "Articles"))
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Articles", routeValues: new { id = Model.Id }))
 {
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
-    @Html.HiddenFor(m => m.Id)
     <br />
     @Html.Label("Title", "Titlu Articol")
     <br />

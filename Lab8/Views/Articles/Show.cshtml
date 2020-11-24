@@ -6,17 +6,23 @@
 
 <div class="panel panel-default">
     @Html.Partial("ArticleInfo", Model)
-    <div class="panel-footer">
-        <a class="btn btn-success pull-left" href="/Articles/Edit/@Model.Id">Modifica articol</a>
 
-        @using (Html.BeginForm(actionName: "Delete", controllerName: "Articles", method: FormMethod.Post, routeValues: new { id = @Model.Id }))
-         {
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-        <button class="btn btn-danger pull-right" type="submit">Sterge articol</button>
-         }   
-        <div class="clearfix"></div>
-    </div>
-   
+    @if (Model.UserId == ViewBag.utilizatorCurent && ViewBag.afisareButoane == true || ViewBag.esteAdmin)
+    {
+        <div class="panel-footer">
+            <a class="btn btn-success pull-left" href="/Articles/Edit/@Model.Id">Modifica articol</a>
+
+            @using (Html.BeginForm(actionName: "Delete", controllerName: "Articles", method: FormMethod.Post, routeValues: new { id = @Model.Id }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="btn btn-danger pull-right" type="submit">Sterge articol</button>
+            }
+            <div class="clearfix"></div>
+        </div>
+    }
+
+
+
 </div>
 
 
@@ -54,6 +60,7 @@
                 </div>
                 <div class="col-md-8">
                     <div class="panel">
+
                         <form method="post" action="/Comments/New">
                             <div class="panel-body">
                                 <input type="hidden" name="ArticleId" value="@Model.Id" />
