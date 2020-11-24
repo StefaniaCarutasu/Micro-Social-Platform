@@ -10,6 +10,7 @@ namespace MicroSocialPlatform.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
             ContextKey = "MicroSocialPlatform.Models.ApplicationDbContext";
         }
 
