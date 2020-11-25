@@ -29,25 +29,32 @@ namespace BDProiect.Controllers
         public ActionResult Show(int id)
         {
             Group group = db.Groups.Find(id);
-            ViewBag.afisareButoane = false;
+            ViewBag.isAdmin= false;
+            ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
-            if (User.IsInRole("Editor") || User.IsInRole("Admin") || group.UserId == User.Identity.GetUserId())
+            if (User.IsInRole("Admin"))
             {
-                ViewBag.afisareButoane = true;
+                ViewBag.isAdmin = true;
+            }
+            if(group.UserId == User.Identity.GetUserId())
+            {
+                ViewBag.isGroupOwner = true;
             }
          
             ViewBag.Group = group;
             return View(group);
         }
 
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New()
         {
-            return View();
+            Group group = new Group();
+            group.UserId = User.Identity.GetUserId();
+            return View(group);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Editor,Admin")]
+        [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New (Group gr)
         {
             try
@@ -71,7 +78,7 @@ namespace BDProiect.Controllers
             }
         }
 
-        [Authorize(Roles = "Editor, Admin")]
+        [Authorize(Roles = "User,Editor, Admin")]
         public ActionResult Edit (int id)
         {
             Group gr = db.Groups.Find(id);
@@ -87,7 +94,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "Editor, Admin")]
+        [Authorize(Roles = "User,Editor, Admin")]
         public ActionResult Edit (int id, Group requestGroup)
         {
             try
@@ -110,7 +117,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "Editor, Admin")]
+        [Authorize(Roles = "User,Editor, Admin")]
         public ActionResult Delete (int id)
         {
             Group gr = db.Groups.Find(id);

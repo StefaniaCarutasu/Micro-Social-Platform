@@ -29,12 +29,17 @@ namespace BDProiect.Controllers
         public ActionResult Show(int id)
         {
             Post post = db.Posts.Find(id);
-            ViewBag.afisareButoane = false;
+            ViewBag.isAdmin = false;
+            ViewBag.isPostOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
 
-            if(User.IsInRole("Editor")||User.IsInRole("Admin")||post.UserId==User.Identity.GetUserId())
+            if(User.IsInRole("Admin"))
             {
-                ViewBag.afisareButoane = true;
+                ViewBag.isAdmin = true;
+            }
+            if(post.UserId == User.Identity.GetUserId())
+            {
+                ViewBag.isPostOwner = true;
             }
             ViewBag.Post = post;
             ViewBag.Group = post.Group;

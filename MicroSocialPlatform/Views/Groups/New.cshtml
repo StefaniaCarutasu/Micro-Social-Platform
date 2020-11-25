@@ -9,6 +9,9 @@
 <a class="btn btn-primary pull-right" href="/Posts/Index">Inapoi la postari</a>
 <br />
 <form method="post" action="/Groups/New">
+
+    @Html.Hidden("UserId")
+
     @Html.Label("GroupName", "Numele grupului")
     <br />
     @Html.TextBox("GroupName", null, new { @class = "form-control" })

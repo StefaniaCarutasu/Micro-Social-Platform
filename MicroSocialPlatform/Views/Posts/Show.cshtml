@@ -14,9 +14,9 @@
         Postare: <br /><strong>@ViewBag.Post.Content</strong>
         <br /><br />
 
-        @if (ViewBag.afisareButoane)
+        @if (ViewBag.isAdmin || ViewBag.isPostOwner)
         {
-            <a class="btn btn-success pull-left" href="/Posts/Edit/@ViewBag.Post.PostId">Modifica articol</a>
+            <a class="btn btn-success pull-left" href="/Posts/Edit/@ViewBag.Post.PostId">Modifica postare</a>
             <!-- @using (Html.BeginForm(actionName: "Delete", controllerName: "Posts", method: FormMethod.Post, routeValues: new { id = @Model.PostId }))
             {
                 @Html.HttpMethodOverride(HttpVerbs.Delete)
@@ -46,15 +46,26 @@
                     <p>@comm.Content</p>
                     <small class="pull-right">@comm.Date</small>
                 </div>
-                <div style="display: inline-block; float : left; margin-right: 15px">
-                    <a class="glyphicon glyphicon-pencil" href="/Comments/Edit/@comm.CommentId"></a>
-                </div>
-                <div style="display: inline-block; float : left">
-                    <form method="post" action="/Comments/Delete/@comm.CommentId">
-                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
-                    </form>
-                </div>
+
+                @if (ViewBag.isPostOwner || comm.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                {
+                    <div style="display: inline-block; float : left ; margin-right: 15px">
+                        <form method="post" action="/Comments/Delete/@comm.CommentId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="glyphicon glyphicon-trash" style="border: none; background: transparent" type="submit"></button>
+                        </form>
+                    </div>
+                }
+
+                @if (comm.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                {
+                    <div style="display: inline-block; float : left">
+                        <a class="glyphicon glyphicon-pencil" href="/Comments/Edit/@comm.CommentId"></a>
+                    </div>
+
+                }
+
+
             </div>
         </div>
         <div class="col-md-2"></div>
