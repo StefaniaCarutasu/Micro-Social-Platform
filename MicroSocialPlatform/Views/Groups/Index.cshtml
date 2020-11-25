@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<h1>@ViewBag.Message</h1>
 <h2>Grupuri</h2>
 
 <a class="btn btn-primary" href="/Groups/New">Adauga un grup nou</a>
@@ -16,6 +16,7 @@
         <h1>@group.GroupName</h1>
         <p>@group.GroupDescription</p>
         <br />
+        
         <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
         <br />
     }
