@@ -1,7 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 using BDProiect.Models;
+using FriendRequest.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -17,6 +22,24 @@ namespace MicroSocialPlatform.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string City { get; set; }
+
+        public bool Visibility { get; set; }
+
+        [ForeignKey("User1_Id")]
+        public virtual ICollection<Friend> SentRequests { get; set; }
+
+        [ForeignKey("User2_Id")]
+        public virtual ICollection<Friend> ReceivedRequests { get; set; }
+        
+        public virtual ICollection<Group> Groups { get; set; }
+
+        
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

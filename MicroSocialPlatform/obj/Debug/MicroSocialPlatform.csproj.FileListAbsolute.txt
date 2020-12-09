@@ -218,3 +218,5 @@ C:\Facultate\Anul 2\Proiect Daw\WebApps\MicroSocialPlatform\obj\Debug\MicroSocia
 C:\Facultate\Anul 2\Proiect Daw\WebApps\MicroSocialPlatform\obj\Debug\MicroSocialPlatform.csproj.CopyComplete
 C:\Facultate\Anul 2\Proiect Daw\WebApps\MicroSocialPlatform\obj\Debug\MicroSocialPlatform.dll
 C:\Facultate\Anul 2\Proiect Daw\WebApps\MicroSocialPlatform\obj\Debug\MicroSocialPlatform.pdb
+C:\Facultate\Anul 2\Proiect Daw\WebApps\MicroSocialPlatform\obj\Debug\MicroSocialPlatform.Migrations.Birthdate.resources
+C:\Facultate\Anul 2\Proiect Daw\WebApps\MicroSocialPlatform\obj\Debug\MicroSocialPlatform.Migrations.Visibility.resources

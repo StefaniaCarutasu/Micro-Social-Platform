@@ -57,6 +57,7 @@ namespace BDProiect.Controllers
         [Authorize(Roles = "User,Editor,Admin")]
         public ActionResult New (Group gr)
         {
+            gr.UserId = User.Identity.GetUserId();
             try
             {
                 if(ModelState.IsValid)
@@ -117,7 +118,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "User,Editor, Admin")]
+        [Authorize(Roles = "User, Admin")]
         public ActionResult Delete (int id)
         {
             Group gr = db.Groups.Find(id);

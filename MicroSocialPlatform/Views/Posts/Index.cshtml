@@ -18,26 +18,28 @@
 @foreach(var post in ViewBag.Posts)
 {
 <div class="panel panel-default">
-    <div class="panel-body">
-        Continut postare:<br /><strong>@post.Content</strong>
-        <br />
-        <!--<span class="label label-success">@post.Date</span>-->
+    <div class="panel-heading">
         @if (post.GroupId == 1)
         {
-            <i class="glyphicon glyphicon-user"></i> <i>postare scrisa de</i>
+            <i class="glyphicon glyphicon-user"></i>
             <strong> @post.User.UserName </strong>
         }
         else
         {
-            <i class="glyphicon glyphicon-user"></i> <i>postare scrisa de</i>
-            <strong> @post.User.UserName </strong> <i> in <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
+            <i class="glyphicon glyphicon-user"></i>
+            <strong> @post.User.UserName </strong> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
         }
-        <div style="display:inline-block; float : right; margin-right:15px">
-            <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
-        </div>
+    </div>
+
+    <div class="panel-body">
+        <br /><br /><strong>@post.Content</strong>
+        <br />
+        <!--<span class="label label-success">@post.Date</span>-->
+       <br />
+        <br />
 
         <div class="panel-footer">
-            <a class="btn btn-sm btn btn-info" href="/Posts/Show/@post.PostId">Afiseaza postarea</a>
+            <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
         </div>
     </div>
 </div>
