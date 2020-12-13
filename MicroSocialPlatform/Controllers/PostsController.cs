@@ -65,7 +65,7 @@ namespace BDProiect.Controllers
 
             if(post.GroupId == 0)
             {
-                post.GroupId = 1;
+                post.GroupId = 15;
             }
             
             try
