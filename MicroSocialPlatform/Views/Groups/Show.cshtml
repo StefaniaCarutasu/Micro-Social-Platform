@@ -9,12 +9,33 @@
 <br />
 <br />
 <div class="panel panel-default">
-    <div class="panel-heading"><strong>@ViewBag.Group.GroupName</strong></div>
+    <div class="panel-heading">
+
+        <strong>@ViewBag.Group.GroupName</strong>
+        <br />
+        @if (ViewBag.isGroupOwner)
+        {
+            <a class="glyphicon glyphicon-edit pull-left" href="/Groups/Edit/@ViewBag.Group.GroupId"> Modifica grupul</a>
+        }
+
+        @if (ViewBag.isGroupOwner || ViewBag.isAdmin)
+        {
+            <form method="post" action="/Groups/Delete/@ViewBag.Group.GroupId">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <button class="glyphicon glyphicon-trash pull-right" style="border: none; background: transparent" type="submit"></button>
+            </form>
+        }
+
+
+        <br />
+        <br />
+
+    </div>
     <div class="panel-body">
         @if (ViewBag.Group.GroupDescription != null)
         {
             <div>Descriere grup: <br /><strong>@ViewBag.Group.GroupDescription</strong></div>
-            <br /><br />
+    
         }
         else
         {
@@ -22,18 +43,9 @@
             <br /><br />
         }
 
+        <i class="glyphicon glyphicon-user">Grup creat de @ViewBag.Group.User.UserName</i>
+        <br />
 
-        @if (ViewBag.isAdmin || ViewBag.isGroupOwner)
-        {
-            <a class="btn btn-success pull-left" href="/Groups/Edit/@ViewBag.Group.GroupId">Modifica grup</a>
-            <form method="post" action="/Groups/Delete/@ViewBag.Group.GroupId">
-                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                <button class="btn btn-danger pull-right" type="submit">
-                    Sterge
-                    grup
-                </button>
-            </form>
-        }
     </div>
 </div>
 
@@ -47,6 +59,8 @@
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div>
+                    <strong>@post.User.UserName</strong>
+                    <hr />
                     <p>@post.Content</p>
                     <small class="pull-right">@post.Date</small>
                 </div>
