@@ -75,7 +75,7 @@ namespace BDProiect.Controllers
                     db.Posts.Add(post);
                     db.SaveChanges();
                     TempData["message"] = "Postarea a fost adaugata";
-                    if(post.GroupId == 1)
+                    if(post.GroupId == 15)
                         return RedirectToAction("Index");
                     else
                         return Redirect("/Groups/Show/" + @post.GroupId);
