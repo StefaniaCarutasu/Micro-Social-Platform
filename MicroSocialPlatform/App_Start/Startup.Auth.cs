@@ -55,9 +55,9 @@ namespace MicroSocialPlatform
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "244583530528899",
+               appSecret: "aa4ad793ccc8998796f7891e70ddd4c3");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
