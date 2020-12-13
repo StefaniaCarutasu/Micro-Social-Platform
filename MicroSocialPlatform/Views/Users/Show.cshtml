@@ -1,0 +1,21 @@
+﻿@model MicroSocialPlatform.Models.ApplicationUser
+@{
+    ViewBag.Title = "Show";
+}
+
+<h1>Show User</h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading"><strong>@ViewBag.UserName</strong></div>
+    <div class="panel-body">
+        <br />
+        @ViewBag.User.Email
+        <br />
+        <div>Rol: <strong>@ViewBag.roleName</strong></div>
+        <br />
+
+    </div>
+    <div class="panel-footer">
+        <a class="btn btn-sm btn-success" href="/Users/Index"> Inapoi la lista de utilizatori</a>
+    </div>
+</div>

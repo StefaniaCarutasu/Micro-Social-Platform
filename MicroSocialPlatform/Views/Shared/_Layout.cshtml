@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top nav_menu" >
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,12 +22,13 @@
             <div class="navbar-collapse collapse">
                 @if (User.IsInRole("Admin"))
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
-                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
-                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
-                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
-                    </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
+                    <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
+                    <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
+                    <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
+                    <li>@Html.ActionLink("Afisare useri", "Index", "Users")</li>
+                </ul>
                 }
                 @if (User.IsInRole("Editor"))
                 {
@@ -55,8 +56,8 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="footer-position">
+            <p>&copy; CarutEscu: connect to people you don't like</p>
         </footer>
     </div>
 

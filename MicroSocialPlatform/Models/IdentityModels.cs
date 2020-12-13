@@ -38,7 +38,7 @@ namespace MicroSocialPlatform.Models
         
         public virtual ICollection<Group> Groups { get; set; }
 
-        
+        public IEnumerable<SelectListItem> AllRoles { get; set; }
 
     }
 

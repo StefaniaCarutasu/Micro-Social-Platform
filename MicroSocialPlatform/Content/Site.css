@@ -1,6 +1,9 @@
-﻿body {
+﻿@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Permanent+Marker&family=Roboto&display=swap');
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-color: #C1C8E4;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -27,4 +30,48 @@ input[type=radio] {
     border: 0px;
     width: 100%;
     height: 2em;
+}
+
+.navbar {
+    background-color: #8860D0;
+    border: none;
+}
+
+.navbar a {
+    color: white;
+}
+
+.navbar a:hover {
+    color: black;
+}
+
+.navbar > li > a :hover
+{
+    background-color: #AF69EE;
+}
+
+
+.font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.font-roboto {
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.font-logo {
+    font-family: 'Permanent Marker', cursive;
+}
+
+
+.footer-position {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    text-align: center;
+    padding-top: 20px;
+    box-shadow: 0 6px 18px #ccc;
 }
