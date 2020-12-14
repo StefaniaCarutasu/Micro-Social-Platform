@@ -86,8 +86,14 @@ namespace MicroSocialPlatform.Controllers
                     var selectedRole = db.Roles.Find(HttpContext.Request.Params.Get("newRole"));
                     UserManager.AddToRole(id, selectedRole.Name);
                     db.SaveChanges();
+                    TempData["message"] = "Utilizatorul a fost editat cu succes";
+                    return RedirectToAction("Index");
                 }
-                return RedirectToAction("Index");
+                else
+                {
+                    return View(newData);
+                }
+                
             }
             catch (Exception e)
             {

@@ -14,14 +14,14 @@ namespace BDProiect.Controllers
 
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Comments
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult New(Comment comment)
         {
             comment.Date = DateTime.Now;
@@ -40,7 +40,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpDelete]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Delete(int id)
         {
             Comment comment = db.Comments.Find(id);
@@ -56,7 +56,7 @@ namespace BDProiect.Controllers
             }
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Edit(int id)
         {
             Comment comment = db.Comments.Find(id);
@@ -74,7 +74,7 @@ namespace BDProiect.Controllers
 
 
         [HttpPut]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Edit(int id, Comment reqComment)
         {
             try

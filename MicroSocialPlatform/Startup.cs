@@ -39,12 +39,12 @@ namespace MicroSocialPlatform
                     UserManager.AddToRole(user.Id, "Admin");
                 }
             }
-            if (!roleManager.RoleExists("Editor"))
+            /*if (!roleManager.RoleExists("Editor"))
             {
                 var role = new IdentityRole();
                 role.Name = "Editor";
                 roleManager.Create(role);
-            }
+            }*/
             if (!roleManager.RoleExists("User"))
             {
                 var role = new IdentityRole();

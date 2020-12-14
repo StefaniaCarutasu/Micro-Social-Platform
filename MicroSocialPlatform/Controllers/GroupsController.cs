@@ -13,7 +13,7 @@ namespace BDProiect.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Groups
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Index()
         {
             if (TempData.ContainsKey("message"))
@@ -25,7 +25,7 @@ namespace BDProiect.Controllers
             return View();
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Show(int id)
         {
             Group group = db.Groups.Find(id);
@@ -45,7 +45,7 @@ namespace BDProiect.Controllers
             return View(group);
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult New()
         {
             Group group = new Group();
@@ -54,7 +54,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult New (Group gr)
         {
             gr.UserId = User.Identity.GetUserId();
@@ -79,7 +79,7 @@ namespace BDProiect.Controllers
             }
         }
 
-        [Authorize(Roles = "User,Editor, Admin")]
+        [Authorize(Roles = "User, Admin")]
         public ActionResult Edit (int id)
         {
             Group gr = db.Groups.Find(id);
