@@ -22,23 +22,25 @@
             <div class="navbar-collapse collapse">
                 @if (User.IsInRole("Admin"))
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
-                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
-                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
-                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
-                        <li>@Html.ActionLink("Afisare useri", "Index", "Users")</li>
-                    </ul>
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Profilul meu", "Index", "Profiles")</li>
+                    <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
+                    <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
+                    <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
+                    <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
+                    <li>@Html.ActionLink("Afisare useri", "Index", "Users")</li>
+                </ul>
                 }
                 
                 @if (User.IsInRole("User"))
                 {
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
-                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
-                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
-                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
-                    </ul>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Profilul meu", "Index", "Profiles")</li>
+                <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
+                <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
+                <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
+                <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
+            </ul>
                 }
 
                 @Html.Partial("_LoginPartial")

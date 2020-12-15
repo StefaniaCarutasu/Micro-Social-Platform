@@ -100,7 +100,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User,Editor, Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Edit (int id, Group requestGroup)
         {
             try

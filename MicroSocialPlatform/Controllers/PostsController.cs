@@ -13,7 +13,7 @@ namespace BDProiect.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Posts
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Index()
         {
             var posts = db.Posts.Include("Group").Include("User");
@@ -25,7 +25,7 @@ namespace BDProiect.Controllers
             return View();
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Show(int id)
         {
             Post post = db.Posts.Find(id);
@@ -47,7 +47,7 @@ namespace BDProiect.Controllers
             return View(post);
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult New()
         {
             Post post = new Post();
@@ -56,7 +56,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult New (Post post)
         {
             post.Date = DateTime.Now;
@@ -92,7 +92,7 @@ namespace BDProiect.Controllers
             }
         }
 
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Edit(int id)
         {
             Post post = db.Posts.Find(id);
@@ -108,7 +108,7 @@ namespace BDProiect.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Edit(int id, Post requestPost)
         {
             try
@@ -134,7 +134,7 @@ namespace BDProiect.Controllers
 
 
         [HttpDelete]
-        [Authorize(Roles = "User,Editor,Admin")]
+        [Authorize(Roles = "User,Admin")]
         public ActionResult Delete(int id)
         {
             Post post = db.Posts.Find(id);
