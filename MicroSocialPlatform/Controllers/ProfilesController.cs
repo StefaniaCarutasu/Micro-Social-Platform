@@ -18,6 +18,9 @@ namespace MicroSocialPlatform.Controllers
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(id);
+            ViewBag.Posts = from post in db.Posts
+                            where post.UserId == id 
+                            select post;
             ViewBag.User = user;
             return View();
         }

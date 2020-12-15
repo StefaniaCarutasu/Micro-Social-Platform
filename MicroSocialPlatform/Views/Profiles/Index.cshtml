@@ -5,3 +5,17 @@
 
 <h2>@ViewBag.user.UserName</h2>
 
+<br />
+@foreach (var post in ViewBag.Posts)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <br /><strong>@post.Content</strong>
+            <br />
+            <div class="panel-footer">
+                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+            </div>
+        </div>
+    </div>
+}
+
