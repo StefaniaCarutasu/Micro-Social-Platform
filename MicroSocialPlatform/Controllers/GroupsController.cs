@@ -20,8 +20,10 @@ namespace BDProiect.Controllers
             {
                 ViewBag.message = TempData["message"].ToString();
             }
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
             var groups = db.Groups;
             ViewBag.Groups = groups;
+            ViewBag.User = user;
             return View();
         }
 
@@ -29,6 +31,9 @@ namespace BDProiect.Controllers
         public ActionResult Show(int id)
         {
             Group group = db.Groups.Find(id);
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.UsersCount = group.Users.Count();
+            ViewBag.User = user;
             ViewBag.isAdmin= false;
             ViewBag.isGroupOwner = false;
             ViewBag.UserId = User.Identity.GetUserId();
@@ -136,14 +141,17 @@ namespace BDProiect.Controllers
             }
         }
 
-        //public ActionResult NewMember(ApplicationUser user, int groupId)
-        //{
-        //    Group group = db.Groups.Find(groupId);
-        //    group.Users.Add(user);
-        //    db.SaveChanges();
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult NewMember(int id)
+        {
+            ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            Group group = db.Groups.Find(id);
+            group.Users.Add(user);
+            user.Groups.Add(group);
+            db.SaveChanges();
 
-        //    return Redirect("/Groups/Show/" + @group.GroupId);
-        //}
+            return Redirect("/Groups/Show/" + @group.GroupId);
+        }
     }
 
    

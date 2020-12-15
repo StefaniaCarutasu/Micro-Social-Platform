@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using BDProiect.Models;
-using FriendRequest.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -54,6 +53,8 @@ namespace MicroSocialPlatform.Models
         public DbSet<Post> Posts { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Friend> Friends { get; set; }
 
         public static ApplicationDbContext Create()
         {

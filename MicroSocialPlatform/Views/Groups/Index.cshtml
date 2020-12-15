@@ -16,8 +16,25 @@
         <h1>@group.GroupName</h1>
         <p>@group.GroupDescription</p>
         <br />
-        
+
         <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
+
+        int count = 0;
+        foreach (var user in group.Users)
+        {
+            if (ViewBag.User == user)
+            {
+                <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
+                count = 1;
+                break;
+            }
+        }
+        if (count == 0)
+        {
+            <a class="btn btn-info" href="/Groups/NewMember/@group.GroupId">Inscrie-te in grup</a>
+        }
+
+
         <br />
     }
 
