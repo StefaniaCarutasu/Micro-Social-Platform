@@ -21,6 +21,7 @@ namespace MicroSocialPlatform.Controllers
             ViewBag.Posts = from post in db.Posts
                             where post.UserId == id 
                             select post;
+            ViewBag.ProfileDescription = user.ProfileDescription;
             ViewBag.User = user;
             return View();
         }
@@ -28,6 +29,12 @@ namespace MicroSocialPlatform.Controllers
         public ActionResult Show(string id)
         {
             ApplicationUser user = db.Users.Find(id);
+            ViewBag.Posts = from post in db.Posts
+                            where post.UserId == id
+                            select post;
+            ViewBag.Profile = from profile in db.Profiles
+                              where profile.UserId == id
+                              select profile;
             ViewBag.User = user;
             return View(user);
         }

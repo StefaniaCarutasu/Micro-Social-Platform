@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -29,6 +30,10 @@ namespace MicroSocialPlatform.Models
 
         public bool Visibility { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        [StringLength(100, ErrorMessage = "Descrierea profilului nu poate avea mai mult de 100 de caractere")]
+        public string ProfileDescription { get; set; }
+
         [ForeignKey("User1_Id")]
         public virtual ICollection<Friend> SentRequests { get; set; }
 
@@ -55,6 +60,8 @@ namespace MicroSocialPlatform.Models
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Friend> Friends { get; set; }
+
+        public DbSet<Profile> Profiles { get; set; }
 
         public static ApplicationDbContext Create()
         {
