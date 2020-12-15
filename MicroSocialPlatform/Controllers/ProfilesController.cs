@@ -12,14 +12,21 @@ namespace MicroSocialPlatform.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: Profiles
+
         [Authorize(Roles = "User,Admin")]
         public ActionResult Index()
         {
             string id = User.Identity.GetUserId();
-            ApplicationUser currentUser = db.Users.Find(id);
-            ViewBag.UserId = id;
-            ViewBag.User = currentUser;
-            return View(currentUser);
+            ApplicationUser user = db.Users.Find(id);
+            ViewBag.User = user;
+            return View();
+        }
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult Show(string id)
+        {
+            ApplicationUser user = db.Users.Find(id);
+            ViewBag.User = user;
+            return View(user);
         }
     }
 }
