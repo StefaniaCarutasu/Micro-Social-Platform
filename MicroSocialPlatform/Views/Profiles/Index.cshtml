@@ -3,5 +3,44 @@
     ViewBag.Title = "Index";
 }
 
-<h2>@ViewBag.user.UserName</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h2>@ViewBag.User.UserName</h2>
+        </div>
+        <div class="col-sm-4">
+            <br />
+            <a class="btn btn-primary pull-right" style="background-color: #5680E9" href="/Posts/New">Adauga postare</a>
+        </div>
+        <br />
+        @if (ViewBag.ProfileDescription != null)
+        {
+            <h5 class="col-sm-8"><strong>@ViewBag.ProfileDescription</strong></h5>
+            <br />
+        }
+        else
+        {
+            <a class="glyphicon glyphicon-edit" href="/Profiles/Edit/@ViewBag.User.UserId"> Adauga descriere</a>
+            <br />
+            <br />
+        }
+        <br />
+        <br />
+    </div>
+</div>
+
+<br />
+<br />
+@foreach (var post in ViewBag.Posts)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <br /><strong>@post.Content</strong>
+            <br />
+            <div class="panel-footer">
+                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+            </div>
+        </div>
+    </div>
+}
 
