@@ -22,6 +22,7 @@ namespace MicroSocialPlatform.Controllers
                              where post.UserId == id
                              select post).ToList();
             ViewBag.ProfileDescription = user.ProfileDescription;
+            ViewBag.UserId = id;
             ViewBag.User = user;
             return View();
         }
