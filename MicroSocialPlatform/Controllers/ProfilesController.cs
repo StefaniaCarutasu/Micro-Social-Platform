@@ -18,9 +18,9 @@ namespace MicroSocialPlatform.Controllers
         {
             string id = User.Identity.GetUserId();
             ApplicationUser user = db.Users.Find(id);
-            ViewBag.Posts = from post in db.Posts
-                            where post.UserId == id 
-                            select post;
+            ViewBag.Posts = (from post in db.Posts
+                             where post.UserId == id
+                             select post).ToList();
             ViewBag.ProfileDescription = user.ProfileDescription;
             ViewBag.User = user;
             return View();
@@ -29,9 +29,9 @@ namespace MicroSocialPlatform.Controllers
         public ActionResult Show(string id)
         {
             ApplicationUser user = db.Users.Find(id);
-            ViewBag.Posts = from post in db.Posts
+            ViewBag.Posts = (from post in db.Posts
                             where post.UserId == id
-                            select post;
+                            select post).ToList();
             ViewBag.Profile = from profile in db.Profiles
                               where profile.UserId == id
                               select profile;
