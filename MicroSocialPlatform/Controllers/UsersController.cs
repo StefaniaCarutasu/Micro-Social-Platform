@@ -177,7 +177,7 @@ namespace MicroSocialPlatform.Controllers
         [HttpPost]
         public ActionResult AcceptFriendship(FormCollection formData)
         {
-            string id = formData.Get("FriendId");
+            int id =Int32.Parse(formData.Get("FriendId"));
             Friend friendship = db.Friends.Find(id);
             friendship.Accepted = true;
             db.SaveChanges();
@@ -185,6 +185,20 @@ namespace MicroSocialPlatform.Controllers
             return Redirect("/Profiles/Index");
             
         }
+
+        [Authorize(Roles = "User,Admin")]
+        [HttpDelete]
+        public ActionResult DeclineFriendship(int id)
+        {
+            Friend friendship = db.Friends.Find(id);
+            db.Friends.Remove(friendship);
+            db.SaveChanges();
+
+            return Redirect("/Profiles/Index");
+
+        }
+
+
 
     }
 }
