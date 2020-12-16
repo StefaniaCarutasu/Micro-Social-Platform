@@ -126,10 +126,10 @@ namespace MicroSocialPlatform.Controllers
 
 
         [HttpPost]
-        public ActionResult AddFriend(FormCollection formData)
+        public ActionResult AddFriend(string id)
         {
             string currentUser = User.Identity.GetUserId();
-            string friendToAdd = formData.Get("UserId"); // TODO: trebuie validare (verificare daca userul exista)
+            string friendToAdd = id; // TODO: trebuie validare (verificare daca userul exista)
 
             Friend friendship = new Friend();
             friendship.User1_Id = currentUser;
@@ -144,7 +144,7 @@ namespace MicroSocialPlatform.Controllers
             db.Friends.Add(friendship);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Redirect("/Profiles/Show" + friendToAdd);
         }
     }
 }

@@ -26,7 +26,12 @@ namespace MicroSocialPlatform.Controllers
         {
             ApplicationUser user = db.Users.Find(id);
             ViewBag.User = user;
+            ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.Friends = db.Friends;
+
             return View(user);
+
+
         }
     }
 }

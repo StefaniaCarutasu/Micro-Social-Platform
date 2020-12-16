@@ -4,4 +4,13 @@
 }
 
 <h2>@ViewBag.user.UserName</h2>
+<br />
 
+
+@foreach (var fr in ViewBag.Friends)
+{
+    if ((fr.User1_Id == ViewBag.User && fr.User2_Id == ViewBag.CurrentUser) || (fr.User2_Id == ViewBag.User && fr.User1_Id == ViewBag.CurrentUser))
+    {
+        <button class="btn btn-primary" href="/Users/AddFriend/" + @ViewBag.user.Id>Adauga prieten</button>
+    }
+}
