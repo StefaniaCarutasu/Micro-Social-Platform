@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,6 +25,11 @@ namespace MicroSocialPlatform.Controllers
             ViewBag.ProfileDescription = user.ProfileDescription;
             ViewBag.UserId = id;
             ViewBag.User = user;
+            var fr = (from friend in db.Friends
+                      where friend.User2_Id == id && friend.Accepted == false
+                      select friend);
+            ViewBag.FriendshipRequests = fr;
+            ViewBag.FrReqCount = fr.Count();
             return View();
         }
         [Authorize(Roles = "User,Admin")]
@@ -39,6 +45,7 @@ namespace MicroSocialPlatform.Controllers
             ViewBag.User = user;
             ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
             ViewBag.Friends = db.Friends;
+            ViewBag.FriendCount = db.Friends.Count();
 
             return View(user);
 

@@ -3,14 +3,60 @@
     ViewBag.Title = "Show";
 }
 
-<h2>@ViewBag.user.UserName</h2>
+<h2>@ViewBag.User.UserName</h2>
 <br />
 
 
-@foreach (var fr in ViewBag.Friends)
+@if (ViewBag.FriendCount == 0)
 {
-    if ((fr.User1_Id == ViewBag.User && fr.User2_Id == ViewBag.CurrentUser) || (fr.User2_Id == ViewBag.User && fr.User1_Id == ViewBag.CurrentUser))
+    <form method="post" action="/Users/AddFriend">
+        <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
+        <button type="submit">Add Friend</button>
+    </form>
+}
+else
+{
+    int count = 0;
+    foreach (var fr in ViewBag.Friends)
     {
-        <button class="btn btn-primary" href="/Users/AddFriend/" + @ViewBag.user.Id>Adauga prieten</button>
+        if ((fr.User1_Id == ViewBag.User.Id && fr.User2_Id == ViewBag.CurrentUser.Id) || (fr.User2_Id == ViewBag.User.Id && fr.User1_Id == ViewBag.CurrentUser.Id))
+        {
+            count = 1;
+            if (fr.Accepted == true)
+            {
+                <i class="glyphicon glyphicon-ok">Sunteti prieteni</i>
+                <br />
+                <hr />
+                break;
+            }
+            else
+            {
+                <i class="glyphicon glyphicon-time">Cererea este in asteptare</i>
+                <br />
+                <hr />
+                break;
+            }
+
+        }
     }
+    if (count == 0)
+    {
+        <form method="post" action="/Users/AddFriend">
+            <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
+            <button type="submit">Add Friend</button>
+        </form>
+    }
+}
+
+@foreach (var post in ViewBag.Posts)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <br /><strong>@post.Content</strong>
+            <br />
+            <div class="panel-footer">
+                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+            </div>
+        </div>
+    </div>
 }

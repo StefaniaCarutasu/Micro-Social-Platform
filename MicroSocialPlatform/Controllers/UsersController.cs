@@ -9,11 +9,13 @@ using System.Web.Mvc;
 
 namespace MicroSocialPlatform.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private ApplicationDbContext db = ApplicationDbContext.Create();
         // GET: Users
+
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var users = from user in db.Users
@@ -24,6 +26,8 @@ namespace MicroSocialPlatform.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Show(string id)
         {
             ApplicationUser user = db.Users.Find(id);
@@ -38,6 +42,8 @@ namespace MicroSocialPlatform.Controllers
             return View(user);
         }
 
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
             ApplicationUser user = db.Users.Find(id);
@@ -47,6 +53,8 @@ namespace MicroSocialPlatform.Controllers
             return View(user);
         }
         [NonAction]
+
+        [Authorize(Roles = "Admin")]
         public IEnumerable<SelectListItem> GetAllRoles()
         {
             var selectList = new List<SelectListItem>();
@@ -61,6 +69,8 @@ namespace MicroSocialPlatform.Controllers
             }
             return selectList;
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public ActionResult Edit(string id, ApplicationUser newData)
         {
@@ -103,6 +113,8 @@ namespace MicroSocialPlatform.Controllers
             }
         }
 
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public ActionResult Delete(string id)
         {
@@ -124,27 +136,55 @@ namespace MicroSocialPlatform.Controllers
             return RedirectToAction("Index");
         }
 
-
+        [Authorize(Roles = "User,Admin")]
         [HttpPost]
-        public ActionResult AddFriend(string id)
+        public ActionResult AddFriend(FormCollection formData)
         {
             string currentUser = User.Identity.GetUserId();
-            string friendToAdd = id; // TODO: trebuie validare (verificare daca userul exista)
+            string friendToAdd = formData.Get("UserId"); // TODO: trebuie validare (verificare daca userul exista)
 
             Friend friendship = new Friend();
             friendship.User1_Id = currentUser;
             friendship.User2_Id = friendToAdd;
-            friendship.Accepted = true; // Accepted = false, iar in lista de cereri -> accept
+            friendship.Accepted = false; // Accepted = false, iar in lista de cereri -> accept
             friendship.RequestTime = DateTime.Now;
 
             // TODO: sa existe try si catch astfel incat sa nu se trimita o cerere de doua ori
             // verificare daca userul a primit deja cerere de la userul caruia doreste sa ii trimita
             // de verificat ca user1 sa nu fie deja prieten cu user2
+            try
+            {
+                var fr = (from friend in db.Friends
+                          where friend.User1_Id == currentUser && friend.User2_Id == friendToAdd
+                          select friend).ToList();
+                if(fr.Count()==0)
+                {
+                    db.Friends.Add(friendship);
+                    db.SaveChanges();
+                    
+                }
+                return Redirect("/Profiles/Show/" + @friendToAdd);
+            }
+            catch(Exception e)
+            {
+                return Redirect("/Profiles/Show/" + @friendToAdd);
+            }
+            
 
-            db.Friends.Add(friendship);
+            
+        }
+        [Authorize(Roles = "User,Admin")]
+        [HttpPost]
+        public ActionResult AcceptFriendship(FormCollection formData)
+        {
+            string id = formData.Get("FriendId");
+            Friend friendship = db.Friends.Find(id);
+            friendship.Accepted = true;
             db.SaveChanges();
 
-            return Redirect("/Profiles/Show" + friendToAdd);
+            return Redirect("/Profiles/Index");
+            
         }
+
     }
 }

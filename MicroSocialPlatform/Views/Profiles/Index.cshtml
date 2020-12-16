@@ -29,6 +29,31 @@
     </div>
 </div>
 
+
+<div class="container">
+
+    @if (ViewBag.FrReqCount != 0)
+    {
+        foreach (var fr in ViewBag.FriendshipRequests)
+        {
+            <div class="row">
+                <p>Utilizatorul @fr.User1.UserName ti-a trimis o cerere de prietenie </p>
+                   
+                    <form method="post" action="/Users/AcceptFriendship">
+                        <input type="hidden" name="FriendId" value="@fr.FriendId" />
+                        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Accepta</button>
+                    </form>
+                    <form method="post" action="/Users/AcceptFriendship">
+                        <input type="hidden" name="FriendId" value="@fr.FriendId" />
+                        <button type="submit" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Refuza</button>
+                    </form>
+            </div>
+        }
+    }
+
+
+</div>
+
 <br />
 <br />
 @foreach (var post in ViewBag.Posts)
