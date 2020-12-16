@@ -17,10 +17,11 @@
         {
             <h5 class="col-sm-8"><strong>@ViewBag.ProfileDescription</strong></h5>
             <br />
+            <a class="glyphicon glyphicon-edit col-sm-8" href="/Profiles/Edit/"> Editeaza profil!</a>
         }
         else
         {
-            <a class="glyphicon glyphicon-edit" href="/Profiles/Edit/@ViewBag.User.Id"> Adauga descriere</a>
+            <a class="glyphicon glyphicon-edit col-sm-8" href="/Profiles/Edit/"> Adauga descriere</a>
             <br />
             <br />
         }
@@ -38,18 +39,18 @@
         {
             <div class="row">
                 <p>Utilizatorul @fr.User1.UserName ti-a trimis o cerere de prietenie </p>
-                   
-                    <form method="post" action="/Users/AcceptFriendship">
-                        <input type="hidden" name="FriendId" value="@fr.FriendId" />
-                        <button type="submit" class="btn btn-success pull-left"><span class="glyphicon glyphicon-ok"></span> Accepta</button>
-                    </form>
-                    <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
-                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                        <button class="btn btn-danger pull-right" type="submit">
-                            <span class="glyphicon glyphicon-ok"></span>
-                            Respinge
-                        </button>
-                    </form>
+
+                <form method="post" action="/Users/AcceptFriendship">
+                    <input type="hidden" name="FriendId" value="@fr.FriendId" />
+                    <button type="submit" class="btn btn-success pull-left"><span class="glyphicon glyphicon-ok"></span> Accepta</button>
+                </form>
+                <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-danger pull-right" type="submit">
+                        <span class="glyphicon glyphicon-ok"></span>
+                        Respinge
+                    </button>
+                </form>
             </div>
         }
     }
@@ -59,16 +60,19 @@
 
 <br />
 <br />
-@foreach (var post in ViewBag.Posts)
-{
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <br /><strong>@post.Content</strong>
-            <br />
-            <div class="panel-footer">
-                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+
+    @foreach (var post in ViewBag.Posts)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <br /><strong>@post.Content</strong>
+                <br />
+                <div class="panel-footer">
+                    <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                </div>
             </div>
         </div>
-    </div>
-}
+    }
+
+
 

@@ -44,12 +44,52 @@ namespace MicroSocialPlatform.Controllers
                               select profile;
             ViewBag.User = user;
             ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
+           string currentId = User.Identity.GetUserId();
             ViewBag.Friends = db.Friends;
             ViewBag.FriendCount = db.Friends.Count();
+            var isFriend = (from friend in db.Friends
+                           where friend.User1_Id == id && friend.User2_Id == currentId && friend.Accepted == true
+                           select friend.Accepted).ToList();
+            if (isFriend.Count() > 0)
+                ViewBag.IsFriend = "True";
+            else ViewBag.IsFriend = "Fa9lse";
 
             return View(user);
+        }
 
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult Edit()
+        {
+            string id = User.Identity.GetUserId();
+            ApplicationUser user = db.Users.Find(id);
+            return View(user);
+        }
 
+        [HttpPut]
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult Edit(ApplicationUser requestUser)
+        {
+            string id = User.Identity.GetUserId();
+            try
+            {
+                ApplicationUser user = db.Users.Find(id);
+                if (TryUpdateModel(user))
+                {
+                    user.UserName = requestUser.UserName;
+                    user.BirthDate = requestUser.BirthDate;
+                    user.PhoneNumber = requestUser.PhoneNumber;
+                    user.ProfileDescription = requestUser.ProfileDescription;
+                    db.SaveChanges();
+                    TempData["message"] = "Profilul a fost editat cu succes";
+                    return RedirectToAction("Index");
+
+                }
+                return View(requestUser);
+            }
+            catch (Exception e)
+            {
+                return View(requestUser);
+            }
         }
     }
 }

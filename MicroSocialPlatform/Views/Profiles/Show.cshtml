@@ -47,16 +47,22 @@ else
         </form>
     }
 }
-
-@foreach (var post in ViewBag.Posts)
+@if (ViewBag.User.Visibility == true || ViewBag.IsFriend == "True")
 {
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <br /><strong>@post.Content</strong>
-            <br />
-            <div class="panel-footer">
-                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+    foreach (var post in ViewBag.Posts)
+    {
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <br /><strong>@post.Content</strong>
+                <br />
+                <div class="panel-footer">
+                    <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                </div>
             </div>
         </div>
-    </div>
+    }
+}
+else
+{
+    <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
 }
