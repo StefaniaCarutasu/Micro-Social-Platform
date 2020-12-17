@@ -61,43 +61,47 @@
                     <div class="row">
                         <div class="col-md-2"></div>
                         <div class="col-md-8">
-                            <div>
-                                <strong>@post.User.UserName</strong>
-                                <hr />
-                                <p>@post.Content</p>
-                                <small class="pull-right">@post.Date</small>
-                            </div>
-
-                            @if (ViewBag.isGroupOwner || post.UserId == ViewBag.UserId || ViewBag.isAdmin)
-                            {
-                                <div style="display: inline-block; float : left; margin-right: 15px">
-                                    <form method="post" action="/Posts/Delete/@post.PostId">
-                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                        <button class="glyphicon glyphicon-trash" style="border: none;
-                            background: transparent" type="submit"></button>
-                                    </form>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <strong>@post.User.UserName</strong>
                                 </div>
-                            }
-
-                            @if (post.UserId == ViewBag.UserId || ViewBag.isAdmin)
-                            {
-                                <div style="display: inline-block; float : left">
-                                    <a class="glyphicon glyphicon-pencil"
-                                       href="/Posts/Edit/@post.PostId"></a>
+                                <div class="panel-body">
+                                    <p>@post.Content</p>
+                                    <small class="pull-right">@post.Date</small>
                                 </div>
 
+                                <div class="panel-footer" style="padding-bottom:10px">
+                                    @if (ViewBag.isGroupOwner || post.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                                    {
+                                        <div style="display: inline-block; float : left; margin-right: 15px">
+                                            <form method="post" action="/Posts/Delete/@post.PostId">
+                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                                <button class="glyphicon glyphicon-trash" style="border: none;
+                                                    background: transparent" type="submit"></button>
+                                            </form>
+                                        </div>
+                                    }
 
-                                <div class="col-md-2"></div>
-                            }
-                            <div style="display:inline-block; float : right; margin-right:15px">
-                                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                                    @if (post.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                                    {
+                                        <div style="display: inline-block; float : left">
+                                            <a class="glyphicon glyphicon-pencil"
+                                               href="/Posts/Edit/@post.PostId"></a>
+                                        </div>
+
+
+                                        <div class="col-md-2"></div>
+                                    }
+                                    <div style="display:inline-block; float : right; margin-right:15px">
+                                        <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                                    </div>
+                                </div>
                             </div>
-
 
                         </div>
                     </div>
                 </div>
-                <hr />
+            
             }
 
             <div class="container">

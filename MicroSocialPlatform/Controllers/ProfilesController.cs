@@ -30,6 +30,10 @@ namespace MicroSocialPlatform.Controllers
                       select friend);
             ViewBag.FriendshipRequests = fr;
             ViewBag.FrReqCount = fr.Count();
+            var isFriend = (from friend in db.Friends
+                            where ((friend.User2_Id == id) || (friend.User1_Id == id)) && friend.Accepted == true
+                            select friend).ToList();
+            ViewBag.UserFriends = isFriend;
             return View();
         }
         [Authorize(Roles = "User,Admin")]
@@ -48,11 +52,15 @@ namespace MicroSocialPlatform.Controllers
             ViewBag.Friends = db.Friends;
             ViewBag.FriendCount = db.Friends.Count();
             var isFriend = (from friend in db.Friends
-                           where friend.User1_Id == id && friend.User2_Id == currentId && friend.Accepted == true
-                           select friend.Accepted).ToList();
-            if (isFriend.Count() > 0)
-                ViewBag.IsFriend = "True";
-            else ViewBag.IsFriend = "Fa9lse";
+                           where ((friend.User2_Id == id)|| (friend.User1_Id == id)) && friend.Accepted == true
+                           select friend).ToList();
+            ViewBag.UserFriends = isFriend;
+            ViewBag.isAdmin = false;
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.isAdmin = true;
+            }
+            
 
             return View(user);
         }

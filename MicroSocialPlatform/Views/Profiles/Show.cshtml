@@ -7,16 +7,18 @@
 <br />
 
 
-@if (ViewBag.FriendCount == 0)
+@if (ViewBag.FriendCount == 0 && (ViewBag.User.Id != ViewBag.CurrentUser.Id))
 {
     <form method="post" action="/Users/AddFriend">
         <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
         <button type="submit">Add Friend</button>
     </form>
+    <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
 }
 else
 {
     int count = 0;
+    int isFriend = 0;
     foreach (var fr in ViewBag.Friends)
     {
         if ((fr.User1_Id == ViewBag.User.Id && fr.User2_Id == ViewBag.CurrentUser.Id) || (fr.User2_Id == ViewBag.User.Id && fr.User1_Id == ViewBag.CurrentUser.Id))
@@ -24,7 +26,15 @@ else
             count = 1;
             if (fr.Accepted == true)
             {
+                isFriend = 1;
                 <i class="glyphicon glyphicon-ok">Sunteti prieteni</i>
+                <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-danger pull-right" type="submit">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        Sterge prieten
+                    </button>
+                </form>
                 <br />
                 <hr />
                 break;
@@ -34,35 +44,59 @@ else
                 <i class="glyphicon glyphicon-time">Cererea este in asteptare</i>
                 <br />
                 <hr />
+                <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
                 break;
             }
 
         }
     }
-    if (count == 0)
+    if (count == 0 && (ViewBag.User.Id != ViewBag.CurrentUser.Id))
     {
         <form method="post" action="/Users/AddFriend">
             <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
             <button type="submit">Add Friend</button>
         </form>
+        <br />
+
     }
-}
-@if (ViewBag.User.Visibility == true || ViewBag.IsFriend == "True")
-{
-    foreach (var post in ViewBag.Posts)
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Prieteni</div>
+        <ul class="list-group">
+            @foreach (var fr in ViewBag.UserFriends)
+            {
+                if (fr.User1_Id != ViewBag.User.Id)
+                {
+                    <li class="list-group-item"><a href="/Profiles/Show/@fr.User1_Id">@fr.User1.UserName</a></li>
+                }
+                else
+                {
+                    <li class="list-group-item"><a href="/Profiles/Show/@fr.User2_Id">@fr.User2.UserName</a></li>
+                }
+            }
+        </ul>
+    </div>
+    if (isFriend == 1 || ViewBag.User.Visibility == true)
     {
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <br /><strong>@post.Content</strong>
-                <br />
-                <div class="panel-footer">
-                    <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+
+        foreach (var post in ViewBag.Posts)
+        {
+            <div class="row">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-6 ">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <br /><strong>@post.Content</strong>
+                            <br />
+                        </div>
+                        <div class="panel-footer">
+                            <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     }
-}
-else
-{
-    <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
 }

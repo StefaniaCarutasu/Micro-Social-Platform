@@ -38,6 +38,7 @@
         foreach (var fr in ViewBag.FriendshipRequests)
         {
             <div class="row">
+                <br />
                 <p>Utilizatorul @fr.User1.UserName ti-a trimis o cerere de prietenie </p>
 
                 <form method="post" action="/Users/AcceptFriendship">
@@ -47,7 +48,7 @@
                 <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
                     <button class="btn btn-danger pull-right" type="submit">
-                        <span class="glyphicon glyphicon-ok"></span>
+                        <span class="glyphicon glyphicon-remove"></span>
                         Respinge
                     </button>
                 </form>
@@ -61,18 +62,38 @@
 <br />
 <br />
 
-    @foreach (var post in ViewBag.Posts)
-    {
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <br /><strong>@post.Content</strong>
-                <br />
-                <div class="panel-footer">
-                    <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
-                </div>
+<div class="panel panel-default">
+    <div class="panel-heading">Prieteni</div>
+    <ul class="list-group">
+        @foreach (var fr in ViewBag.UserFriends)
+        {
+            if (fr.User1_Id != ViewBag.User.Id)
+            {
+                <li class="list-group-item"><a href="/Profiles/Show/@fr.User1_Id">@fr.User1.UserName</a></li>
+            }
+            else
+            {
+                <li class="list-group-item"><a href="/Profiles/Show/@fr.User2_Id">@fr.User2.UserName</a></li>
+            }
+        }
+    </ul>
+</div>
+
+<br />
+<br />
+
+@foreach (var post in ViewBag.Posts)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <br /><strong>@post.Content</strong>
+            <br />
+            <div class="panel-footer">
+                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
             </div>
         </div>
-    }
+    </div>
+}
 
 
 
