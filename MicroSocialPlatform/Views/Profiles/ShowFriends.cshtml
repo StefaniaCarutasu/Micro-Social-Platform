@@ -1,0 +1,109 @@
+﻿@model MicroSocialPlatform.Models.ApplicationUser
+@{
+    ViewBag.Title = "ShowFriends";
+}
+
+<br />
+<br />
+<h2 style="text-align:center">@ViewBag.User.UserName</h2>
+<br />
+@if (ViewBag.ProfileDescription != null)
+{
+    <h5 style="text-align:center"><strong>@ViewBag.ProfileDescription</strong></h5>
+    <br />
+
+}
+<hr />
+
+
+@if (ViewBag.FriendCount == 0 && (ViewBag.User.Id != ViewBag.CurrentUser.Id))
+{
+    <form method="post" action="/Users/AddFriend">
+        <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
+        <button type="submit">Add Friend</button>
+    </form>
+    <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
+}
+else
+{
+
+    int count = 0;
+    int isFriend = 0;
+    foreach (var fr in ViewBag.Friends)
+    {
+        if ((fr.User1_Id == ViewBag.User.Id && fr.User2_Id == ViewBag.CurrentUser.Id) || (fr.User2_Id == ViewBag.User.Id && fr.User1_Id == ViewBag.CurrentUser.Id))
+        {
+            count = 1;
+            if (fr.Accepted == true)
+            {
+                isFriend = 1;
+                <i class="glyphicon glyphicon-ok">Sunteti prieteni</i>
+                <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-danger pull-right" type="submit">
+                        <span class="glyphicon glyphicon-remove"></span>
+                        Sterge prieten
+                    </button>
+                </form>
+                <br />
+                <hr />
+                break;
+            }
+            else
+            {
+                <i class="glyphicon glyphicon-time">Cererea este in asteptare</i>
+                <br />
+                <hr />
+                <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
+                break;
+            }
+
+        }
+    }
+    if (count == 0 && (ViewBag.User.Id != ViewBag.CurrentUser.Id))
+    {
+        <form method="post" action="/Users/AddFriend">
+            <input type="hidden" name="UserId" value="@ViewBag.User.Id" />
+            <button type="submit">Add Friend</button>
+        </form>
+        <br />
+
+    }
+
+
+    if (isFriend == 1 || ViewBag.User.Visibility == true || ViewBag.isAdmin)
+    {
+        <ul class="nav nav-tabs">
+            @if (ViewBag.User.Id != ViewBag.CurrentUser.Id)
+            {
+                <li><a href="/Profiles/Show/@ViewBag.User.Id">Postari</a></li>
+            }
+            else
+            {
+                <li><a href="/Profiles/Index">Postari</a></li>
+            }
+
+            <li class="active"><a href="#">Prieteni<span class="badge">@ViewBag.Count</span></a></li>
+        </ul>
+        <br />
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Prieteni</div>
+            <ul class="list-group">
+                @foreach (var fr in ViewBag.UserFriends)
+                {
+                    if (fr.User1_Id != ViewBag.User.Id)
+                    {
+                        <li class="list-group-item"><a href="/Profiles/Show/@fr.User1_Id">@fr.User1.UserName</a></li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item"><a href="/Profiles/Show/@fr.User2_Id">@fr.User2.UserName</a></li>
+                    }
+                }
+            </ul>
+        </div>
+    }
+
+
+}

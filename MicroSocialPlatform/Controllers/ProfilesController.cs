@@ -34,6 +34,19 @@ namespace MicroSocialPlatform.Controllers
                             where ((friend.User2_Id == id) || (friend.User1_Id == id)) && friend.Accepted == true
                             select friend).ToList();
             ViewBag.UserFriends = isFriend;
+            int count = 0;
+            foreach (var fre in db.Friends)
+            {
+                if ((fre.User1_Id == ViewBag.User.Id) || (fre.User2_Id == ViewBag.User.Id))
+                {
+
+                    if (fre.Accepted == true)
+                    {
+                        count++;
+                    }
+                }
+            }
+            ViewBag.Count = count;
             return View();
         }
         [Authorize(Roles = "User,Admin")]
@@ -47,6 +60,7 @@ namespace MicroSocialPlatform.Controllers
                               where profile.UserId == id
                               select profile;
             ViewBag.User = user;
+            ViewBag.ProfileDescription = user.ProfileDescription;
             ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
            string currentId = User.Identity.GetUserId();
             ViewBag.Friends = db.Friends;
@@ -60,7 +74,53 @@ namespace MicroSocialPlatform.Controllers
             {
                 ViewBag.isAdmin = true;
             }
-            
+            int count = 0;
+            foreach (var fr in db.Friends)
+            {
+                if ((fr.User1_Id == ViewBag.User.Id) || (fr.User2_Id == ViewBag.User.Id))
+                {
+
+                    if (fr.Accepted == true)
+                    {
+                        count++;
+                    }
+                }
+            }
+            ViewBag.Count = count;
+
+
+            return View(user);
+        }
+        [Authorize(Roles = "User,Admin")]
+        public ActionResult ShowFriends(string id)
+        {
+            ApplicationUser user = db.Users.Find(id);
+            ViewBag.Profile = from profile in db.Profiles
+                              where profile.UserId == id
+                              select profile;
+            ViewBag.User = user;
+            ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
+            string currentId = User.Identity.GetUserId();
+            ViewBag.Friends = db.Friends;
+            int count = 0;
+            foreach (var fr in db.Friends)
+            {
+                if ((fr.User1_Id == ViewBag.User.Id) || (fr.User2_Id == ViewBag.User.Id))
+                {
+
+                    if (fr.Accepted == true)
+                    {
+                        count++;
+                    }
+                }
+            }
+            ViewBag.Count = count;
+            ViewBag.FriendCount = db.Friends.Count();
+            var isFriend = (from friend in db.Friends
+                            where ((friend.User2_Id == id) || (friend.User1_Id == id)) && friend.Accepted == true
+                            select friend).ToList();
+            ViewBag.UserFriends = isFriend;
+            ViewBag.ProfileDescription = user.ProfileDescription;
 
             return View(user);
         }

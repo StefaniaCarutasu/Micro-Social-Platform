@@ -4,31 +4,26 @@
 }
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-8">
-            <h2>@ViewBag.User.UserName</h2>
-        </div>
-        <div class="col-sm-4">
-            <br />
-            <a class="btn btn-primary pull-right" style="background-color: #5680E9" href="/Posts/New">Adauga postare</a>
-        </div>
+    <br />
+    <h2 style="text-align:center">@ViewBag.User.UserName</h2>
+    <br />
+    @if (ViewBag.ProfileDescription != null)
+     {
+        <h5 style="text-align:center"><strong>@ViewBag.ProfileDescription</strong></h5>
         <br />
-        @if (ViewBag.ProfileDescription != null)
-        {
-            <h5 class="col-sm-8"><strong>@ViewBag.ProfileDescription</strong></h5>
-            <br />
-            <a class="glyphicon glyphicon-edit col-sm-8" href="/Profiles/Edit/"> Editeaza profil!</a>
-        }
-        else
-        {
-            <a class="glyphicon glyphicon-edit col-sm-8" href="/Profiles/Edit/"> Adauga descriere</a>
-            <br />
-            <br />
-        }
+        <a class="glyphicon glyphicon-edit" href="/Profiles/Edit/"> Editeaza profil!</a>
+     }
+    else
+    {
+        <a class="glyphicon glyphicon-edit " href="/Profiles/Edit/" style="text-align:center;display:block"> Adauga descriere</a>
         <br />
         <br />
-    </div>
+    }
+    <hr />
+    <br />
+    <br />
 </div>
+
 
 
 <div class="container">
@@ -62,37 +57,31 @@
 <br />
 <br />
 
-<div class="panel panel-default">
-    <div class="panel-heading">Prieteni</div>
-    <ul class="list-group">
-        @foreach (var fr in ViewBag.UserFriends)
-        {
-            if (fr.User1_Id != ViewBag.User.Id)
-            {
-                <li class="list-group-item"><a href="/Profiles/Show/@fr.User1_Id">@fr.User1.UserName</a></li>
-            }
-            else
-            {
-                <li class="list-group-item"><a href="/Profiles/Show/@fr.User2_Id">@fr.User2.UserName</a></li>
-            }
-        }
-    </ul>
-</div>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#">Postari</a></li>
+    <li><a href="/Profiles/ShowFriends/@ViewBag.User.Id">Prieteni<span class="badge">@ViewBag.Count</span></a></li>
+</ul>
 
 <br />
 <br />
 
 @foreach (var post in ViewBag.Posts)
 {
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <br /><strong>@post.Content</strong>
-            <br />
-            <div class="panel-footer">
-                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="panel panel-default col-sm-8">
+            <div class="panel-body">
+                <br /><strong>@post.Content</strong>
+                <br />
+                <br />
+                <div class="panel-footer">
+                    <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                </div>
             </div>
         </div>
+        <div class="col-sm-2"></div>
     </div>
+
 }
 
 

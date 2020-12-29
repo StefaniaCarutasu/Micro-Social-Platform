@@ -273,6 +273,7 @@
     <Content Include="Views\Profiles\Show.cshtml" />
     <Content Include="Views\Profiles\Index.cshtml" />
     <Content Include="Views\Profiles\Edit.cshtml" />
+    <Content Include="Views\Profiles\ShowFriends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

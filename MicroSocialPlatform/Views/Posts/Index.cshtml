@@ -16,17 +16,23 @@
 @foreach(var post in ViewBag.Posts)
 {
     <br />
-<div class="panel panel-default">
+<div class="row">
+    <div class="col-sm-2"></div>
+<div class="panel panel-default col-sm-8">
     <div class="panel-heading">
         @if (post.GroupId == 1)
         {
             <i class="glyphicon glyphicon-user"></i>
-            <a href ="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
+            <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
+            <br />
+            <small>@post.Date</small>
         }
         else
         {
             <i class="glyphicon glyphicon-user"></i>
-            <a href ="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
+            <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
+            <br />
+            <small>@post.Date</small>
         }
     </div>
 
@@ -38,8 +44,12 @@
         <br />
 
         <div class="panel-footer">
-            <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+            <i class="glyphicon glyphicon-comment"></i>
+            <a href="/Posts/Show/@post.PostId">Comenteaza</a>
         </div>
     </div>
 </div>
+    <div class="col-sm-2"></div>
+    </div>
+
 }
