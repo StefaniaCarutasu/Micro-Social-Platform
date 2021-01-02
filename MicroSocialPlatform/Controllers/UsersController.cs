@@ -13,17 +13,34 @@ namespace MicroSocialPlatform.Controllers
     {
         private ApplicationDbContext db = ApplicationDbContext.Create();
         // GET: Users
-
-
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             var users = from user in db.Users
                         orderby user.UserName
                         select user;
+            var search = "";
+            if(Request.Params.Get("search") != null)
+            {
+                search = Request.Params.Get("search").Trim();
+                List<string> userIds = db.Users.Where(
+                    us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
+                users = (IOrderedQueryable<ApplicationUser>)db.Users.Where(user => userIds.Contains(user.Id));
+            }
+            
 
             ViewBag.UsersList = users;
             return View();
+        }
+
+        [Authorize(Roles = "Admin,User")]
+        public List<ApplicationUser> getSearchUsers (string keyword)
+        {
+            var userIds = (from user in db.Users
+                          orderby user.Id
+                          where user.UserName.Contains(keyword)
+                          select user).ToList();
+            return userIds;
         }
 
 

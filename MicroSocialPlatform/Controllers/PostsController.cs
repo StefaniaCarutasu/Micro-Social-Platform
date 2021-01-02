@@ -22,6 +22,26 @@ namespace BDProiect.Controllers
             {
                 ViewBag.Message = TempData["message"];
             }
+            var users = from user in db.Users
+                        orderby user.UserName
+                        select user;
+            var search = "";
+            if (Request.Params.Get("search") != null)
+            {
+                search = Request.Params.Get("search").Trim();
+                List<string> userIds = db.Users.Where(
+                    us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
+                users = (IOrderedQueryable<ApplicationUser>)db.Users.Where(user => userIds.Contains(user.Id));
+                ViewBag.CountUsers = users.Count();
+            }
+            else
+            {
+                ViewBag.CountUsers = 0;
+            }
+
+
+            ViewBag.UsersList = users;
+
             return View();
         }
 

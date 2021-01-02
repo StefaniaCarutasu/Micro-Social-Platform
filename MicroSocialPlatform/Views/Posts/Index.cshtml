@@ -6,50 +6,97 @@
 
 <br />
 
-<h2>Postari</h2>
 
-<a class="btn btn-primary pull-left" style="background-color: #5680E9" href="/Posts/New">Adauga postare</a>
-<br />
-
-<hr />
-
-@foreach(var post in ViewBag.Posts)
-{
+<div class="container">
     <br />
-<div class="row">
-    <div class="col-sm-2"></div>
-<div class="panel panel-default col-sm-8">
-    <div class="panel-heading">
-        @if (post.GroupId == 1)
-        {
-            <i class="glyphicon glyphicon-user"></i>
-            <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
-            <br />
-            <small>@post.Date</small>
-        }
-        else
-        {
-            <i class="glyphicon glyphicon-user"></i>
-            <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
-            <br />
-            <small>@post.Date</small>
-        }
-    </div>
-
-    <div class="panel-body">
-        <br /><br /><strong>@post.Content</strong>
-        <br />
-        <!--<span class="label label-success">@post.Date</span>-->
-       <br />
-        <br />
-
-        <div class="panel-footer">
-            <i class="glyphicon glyphicon-comment"></i>
-            <a href="/Posts/Show/@post.PostId">Comenteaza</a>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form class="card card-sm" method="GET">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
+                               value="@ViewBag.SearchString"
+                               placeholder="Search user">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success"
+                                type="submit">
+                            Search
+                        </button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
         </div>
+        <!--end of col-->
     </div>
 </div>
-    <div class="col-sm-2"></div>
+@if (ViewBag.search != "" && ViewBag.CountUsers > 0)
+{
+    <ul class="list-group">
+        @foreach (var user in ViewBag.UsersList)
+        {
+            <li>
+                <i class="glyphicon glyphicon-user"></i>
+                <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
+                <br />
+            </li>
+
+        }
+    </ul>
+}
+
+<br />
+<h2>Postari</h2>
+<br />
+<a class="btn btn-primary pull-left" style="background-color: #5680E9" href="/Posts/New">Adauga postare</a>
+<br />
+<hr />
+
+
+
+@foreach (var post in ViewBag.Posts)
+{
+    <br />
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="panel panel-default col-sm-8">
+            <div class="panel-heading">
+                @if (post.GroupId == 1)
+                {
+                    <i class="glyphicon glyphicon-user"></i>
+                    <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
+                    <br />
+                    <small>@post.Date</small>
+                }
+                else
+                {
+                    <i class="glyphicon glyphicon-user"></i>
+                    <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
+                    <br />
+                    <small>@post.Date</small>
+                }
+            </div>
+
+            <div class="panel-body">
+                <br /><br /><strong>@post.Content</strong>
+                <br />
+                <!--<span class="label label-success">@post.Date</span>-->
+                <br />
+                <br />
+
+                <div class="panel-footer">
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <a href="/Posts/Show/@post.PostId">Comenteaza</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
     </div>
 
 }
