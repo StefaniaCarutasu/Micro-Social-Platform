@@ -2,17 +2,60 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="container">
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form class="card card-sm" method="GET">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
+                               value="@ViewBag.SearchString"
+                               placeholder="Search user">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success"
+                                type="submit">
+                            Search
+                        </button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+</div>
+@if (ViewBag.search != "" && ViewBag.CountUsers > 0)
+{
+    <ul class="list-group">
+        @foreach (var user in ViewBag.UsersList)
+        {
+            <li>
+                <i class="glyphicon glyphicon-user"></i>
+                <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
+                <br />
+            </li>
+
+        }
+    </ul>
+}
 
 <div class="container">
     <br />
     <h2 style="text-align:center">@ViewBag.User.UserName</h2>
     <br />
     @if (ViewBag.ProfileDescription != null)
-     {
+    {
         <h5 style="text-align:center"><strong>@ViewBag.ProfileDescription</strong></h5>
         <br />
         <a class="glyphicon glyphicon-edit" href="/Profiles/Edit/"> Editeaza profil!</a>
-     }
+    }
     else
     {
         <a class="glyphicon glyphicon-edit " href="/Profiles/Edit/" style="text-align:center;display:block"> Adauga descriere</a>

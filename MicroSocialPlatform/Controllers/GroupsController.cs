@@ -24,6 +24,26 @@ namespace BDProiect.Controllers
             var groups = db.Groups;
             ViewBag.Groups = groups;
             ViewBag.User = user;
+            var users = from usr in db.Users
+                        orderby usr.UserName
+                        select usr;
+            var search = "";
+            if (Request.Params.Get("search") != null)
+            {
+                search = Request.Params.Get("search").Trim();
+                List<string> userIds = db.Users.Where(
+                    us => us.UserName.Contains(search)).Select(u => u.Id).ToList();
+                users = (IOrderedQueryable<ApplicationUser>)db.Users.Where(usr => userIds.Contains(usr.Id));
+                ViewBag.CountUsers = users.Count();
+            }
+            else
+            {
+                ViewBag.CountUsers = 0;
+            }
+
+
+            ViewBag.UsersList = users;
+
             return View();
         }
 
