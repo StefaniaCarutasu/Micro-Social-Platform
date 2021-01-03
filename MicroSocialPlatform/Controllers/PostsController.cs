@@ -17,6 +17,7 @@ namespace BDProiect.Controllers
         public ActionResult Index()
         {
             var posts = db.Posts.Include("Group").Include("User");
+
             ViewBag.Posts = posts;
             if (TempData.ContainsKey("message"))
             {
@@ -39,8 +40,13 @@ namespace BDProiect.Controllers
                 ViewBag.CountUsers = 0;
             }
 
-
             ViewBag.UsersList = users;
+            var currentUser = User.Identity.GetUserId();
+            ViewBag.CurrentUser = currentUser;
+            var friends = (from fr in db.Friends
+                           where fr.User1_Id == currentUser
+                           select fr.User2_Id).ToList();
+            ViewBag.FriendsList = friends;
 
             return View();
         }
