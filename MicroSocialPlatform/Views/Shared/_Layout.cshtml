@@ -23,24 +23,23 @@
                 @if (User.IsInRole("Admin"))
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Profilul meu", "Index", "Profiles")</li>
-                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
-                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
-                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
-                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
-                        <li>@Html.ActionLink("Afisare useri", "Index", "Users")</li>
-
+                        <li><a href="/Posts/Index" class="glyphicon glyphicon-home"> Home</a></li>
+                        <li><a href="/Posts/New" class="glyphicon glyphicon-plus-sign"> New Post</a></li>
+                        <li><a href="/Groups/Index" class="glyphicon glyphicon-list-alt"> Groups</a></li>
+                        <li><a href="/Groups/New" class="glyphicon glyphicon-plus-sign"> New Group</a></li>
+                        <li><a href="/Profiles/Index" class="glyphicon glyphicon-user"> Profile</a></li>
+                        <li>@Html.ActionLink("Show Users", "Index", "Users")</li>
                     </ul>
                 }
 
                 @if (User.IsInRole("User"))
                 {
                     <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Profilul meu", "Index", "Profiles")</li>
-                        <li>@Html.ActionLink("Afisare postari", "Index", "Posts")</li>
-                        <li>@Html.ActionLink("Adaugare postare", "New", "Posts")</li>
-                        <li>@Html.ActionLink("Afisare grupuri", "Index", "Groups")</li>
-                        <li>@Html.ActionLink("Adaugare grup", "New", "Groups")</li>
+                        <li><a href="/Posts/Index" class="glyphicon glyphicon-home"> Home</a></li>
+                        <li><a href="/Posts/New" class="glyphicon glyphicon-plus-sign"> New Post</a></li>
+                        <li><a href="/Groups/Index" class="glyphicon glyphicon-list-alt"> Groups</a></li>
+                        <li><a href="/Groups/New" class="glyphicon glyphicon-plus-sign"> New Group</a></li>
+                        <li><a href="/Profiles/Index" class="glyphicon glyphicon-user"> Profile</a></li>
                     </ul>
                 }
 
