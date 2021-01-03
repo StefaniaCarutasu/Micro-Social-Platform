@@ -4,52 +4,56 @@
 }
 <h1>@ViewBag.Message</h1>
 
-<br />
-
-
 <div class="container">
-    <br />
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-            <form class="card card-sm" method="GET">
-                <div class="card-body row no-gutters align-items-center">
-                    <div class="col-auto">
-                        <i class="fas fa-search h4 text-body"></i>
+    <div class="pull-right">
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form class="card card-sm" method="GET">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
+                                   value="@ViewBag.SearchString"
+                                   placeholder="Search user">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success"
+                                    type="submit">
+                                Search
+                            </button>
+                        </div>
+                        <!--end of col-->
                     </div>
-                    <!--end of col-->
-                    <div class="col">
-                        <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
-                               value="@ViewBag.SearchString"
-                               placeholder="Search user">
-                    </div>
-                    <!--end of col-->
-                    <div class="col-auto">
-                        <button class="btn btn-lg btn-success"
-                                type="submit">
-                            Search
-                        </button>
-                    </div>
-                    <!--end of col-->
-                </div>
-            </form>
+                </form>
+            </div>
+            <!--end of col-->
         </div>
-        <!--end of col-->
     </div>
 </div>
+
 @if (ViewBag.search != "" && ViewBag.CountUsers > 0)
 {
-    <ul class="list-group">
+<ul class="list-group pull-right dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        People
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         @foreach (var user in ViewBag.UsersList)
         {
-            <li>
-                <i class="glyphicon glyphicon-user"></i>
-                <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
-                <br />
-            </li>
+<li class="dropdown-item">
+    <i class="glyphicon glyphicon-user"></i>
+    <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
+    <br />
+</li>}
+    </div>
 
-        }
-    </ul>
-}
+</ul>}
+
 
 <br />
 <h2>Postari</h2>
