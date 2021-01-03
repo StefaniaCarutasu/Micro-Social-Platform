@@ -52,7 +52,7 @@ namespace BDProiect.Controllers
         {
             Group group = db.Groups.Find(id);
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
-            ViewBag.UsersCount = group.Users.Count();
+            ViewBag.UsersCount = group.Registrations.Count();
             ViewBag.User = user;
             ViewBag.isAdmin= false;
             ViewBag.isGroupOwner = false;
@@ -165,13 +165,30 @@ namespace BDProiect.Controllers
         public ActionResult NewMember(int id)
         {
             ApplicationUser user = db.Users.Find(User.Identity.GetUserId());
+            Registration reg = new Registration();
+            reg.GroupId = id;
+            reg.UserId = User.Identity.GetUserId();
+            reg.Date = DateTime.Now;
             Group group = db.Groups.Find(id);
-            group.Users.Add(user);
-            user.Groups.Add(group);
+            group.Registrations.Add(reg);
+            user.Registrations.Add(reg);
             db.SaveChanges();
 
             return Redirect("/Groups/Show/" + @group.GroupId);
         }
+
+        [HttpDelete]
+        [Authorize(Roles = "User,Admin")]
+
+        public ActionResult LeaveGroup(int id)
+        {
+            Registration reg = db.Registrations.Find(id);
+            db.Registrations.Remove(reg);
+            db.SaveChanges();
+
+            return Redirect("/Groups/Index");
+        }
+
     }
 
    

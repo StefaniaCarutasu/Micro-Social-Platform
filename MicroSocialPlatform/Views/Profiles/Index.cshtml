@@ -69,33 +69,7 @@
 
 
 
-<div class="container">
 
-    @if (ViewBag.FrReqCount != 0)
-    {
-        foreach (var fr in ViewBag.FriendshipRequests)
-        {
-            <div class="row">
-                <br />
-                <p>Utilizatorul @fr.User1.UserName ti-a trimis o cerere de prietenie </p>
-
-                <form method="post" action="/Users/AcceptFriendship">
-                    <input type="hidden" name="FriendId" value="@fr.FriendId" />
-                    <button type="submit" class="btn btn-success pull-left"><span class="glyphicon glyphicon-ok"></span> Accepta</button>
-                </form>
-                <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
-                    @Html.HttpMethodOverride(HttpVerbs.Delete)
-                    <button class="btn btn-danger pull-right" type="submit">
-                        <span class="glyphicon glyphicon-remove"></span>
-                        Respinge
-                    </button>
-                </form>
-            </div>
-        }
-    }
-
-
-</div>
 
 <br />
 <br />
@@ -103,6 +77,7 @@
 <ul class="nav nav-tabs">
     <li class="active"><a href="#">Postari</a></li>
     <li><a href="/Profiles/ShowFriends/@ViewBag.User.Id">Prieteni<span class="badge">@ViewBag.Count</span></a></li>
+    <li><a href="/Profiles/Notifications">Notificari<span class="badge">@ViewBag.FrReqCount</span></a></li>
 </ul>
 
 <br />

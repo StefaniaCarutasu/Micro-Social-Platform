@@ -37,7 +37,7 @@
             <div>Descriere grup: <br /><strong>@ViewBag.Group.GroupDescription</strong></div>
 
         }
-        else if(ViewBag.isGroupOwner)
+        else if (ViewBag.isGroupOwner)
         {
             <a class="glyphicon glyphicon-edit" href="/Groups/Edit/@ViewBag.Group.GroupId"> Adauga descriere</a>
             <br /><br />
@@ -46,14 +46,31 @@
         <i class="glyphicon glyphicon-user">Grup creat de @ViewBag.Group.User.UserName</i>
         <br />
 
+        @if (ViewBag.UsersCount != 0)
+        {
+            foreach (var reg in ViewBag.Group.Registrations)
+            {
+                if ((reg.User == ViewBag.User))
+                {
+                    <form method="post" action="/Groups/LeaveGroup/@reg.RegistrationId">
+                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                        <button class="btn btn-danger pull-right" type="submit">
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            Paraseste grupul
+                        </button>
+                    </form>
+                }
+            }
+        }
+
     </div>
 </div>
 
 @if (ViewBag.UsersCount!=0)
 {
-    foreach (var user in ViewBag.Group.Users)
+    foreach (var reg in ViewBag.Group.Registrations)
     {
-        if (ViewBag.isGroupOwner || ViewBag.isAdmin || (user == ViewBag.User))
+        if (ViewBag.isGroupOwner || ViewBag.isAdmin || (reg.User == ViewBag.User))
         {
             foreach (var post in ViewBag.Group.Posts)
             {

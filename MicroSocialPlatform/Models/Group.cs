@@ -22,7 +22,7 @@ namespace BDProiect.Models
 
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<Registration> Registrations { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }

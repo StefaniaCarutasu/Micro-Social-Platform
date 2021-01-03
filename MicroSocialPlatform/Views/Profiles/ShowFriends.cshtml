@@ -3,6 +3,50 @@
     ViewBag.Title = "ShowFriends";
 }
 
+<div class="container">
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form class="card card-sm" method="GET">
+                <div class="card-body row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search h4 text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
+                               value="@ViewBag.SearchString"
+                               placeholder="Search user">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-lg btn-success"
+                                type="submit">
+                            Search
+                        </button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+</div>
+@if (ViewBag.search != "" && ViewBag.CountUsers > 0)
+{
+    <ul class="list-group">
+        @foreach (var user in ViewBag.UsersList)
+        {
+            <li>
+                <i class="glyphicon glyphicon-user"></i>
+                <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
+                <br />
+            </li>
+
+        }
+    </ul>
+}
+
 <br />
 <br />
 <h2 style="text-align:center">@ViewBag.User.UserName</h2>
@@ -11,7 +55,18 @@
 {
     <h5 style="text-align:center"><strong>@ViewBag.ProfileDescription</strong></h5>
     <br />
+    if (ViewBag.User.Id == ViewBag.CurrentUser.Id)
+    {
+        <a class="glyphicon glyphicon-edit" href="/Profiles/Edit/"> Editeaza profil!</a>
+    }
 
+
+}
+else if ((ViewBag.User.Id == ViewBag.CurrentUser.Id))
+{
+    <a class="glyphicon glyphicon-edit " href="/Profiles/Edit/" style="text-align:center;display:block"> Adauga descriere</a>
+    <br />
+    <br />
 }
 <hr />
 
@@ -54,7 +109,14 @@ else
                 <i class="glyphicon glyphicon-time">Cererea este in asteptare</i>
                 <br />
                 <hr />
-                <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
+
+                if (ViewBag.User.Visibility == false)
+                {
+                    <br />
+                    <hr />
+                    <div><strong>Nu aveti permisiunea de a vizualiza profilul acesta!</strong></div>
+                }
+
                 break;
             }
 
@@ -71,7 +133,7 @@ else
     }
 
 
-    if (isFriend == 1 || ViewBag.User.Visibility == true || ViewBag.isAdmin)
+    if (isFriend == 1 || ViewBag.User.Visibility == true || ViewBag.isAdmin || (ViewBag.User.Id == ViewBag.CurrentUser.Id))
     {
         <ul class="nav nav-tabs">
             @if (ViewBag.User.Id != ViewBag.CurrentUser.Id)
@@ -84,6 +146,11 @@ else
             }
 
             <li class="active"><a href="#">Prieteni<span class="badge">@ViewBag.Count</span></a></li>
+
+            @if (ViewBag.User.Id == ViewBag.CurrentUser.Id)
+            {
+                <li><a href="/Profiles/Notifications">Notificari<span class="badge">@ViewBag.FrReqCount</span></a></li>
+            }
         </ul>
         <br />
 

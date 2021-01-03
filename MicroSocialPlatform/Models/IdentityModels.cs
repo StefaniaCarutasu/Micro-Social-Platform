@@ -39,8 +39,8 @@ namespace MicroSocialPlatform.Models
 
         [ForeignKey("User2_Id")]
         public virtual ICollection<Friend> ReceivedRequests { get; set; }
-        
-        public virtual ICollection<Group> Groups { get; set; }
+
+        public virtual ICollection<Registration> Registrations { get; set; }
 
         public IEnumerable<SelectListItem> AllRoles { get; set; }
 
@@ -63,6 +63,7 @@ namespace MicroSocialPlatform.Models
 
         public DbSet<Profile> Profiles { get; set; }
 
+        public DbSet<Registration> Registrations { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

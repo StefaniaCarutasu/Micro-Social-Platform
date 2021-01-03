@@ -22,6 +22,13 @@
     @Html.Editor("BirthDate")
     <br />
     <br />
+
+    @Html.Label("City", "Oras")
+    <br />
+    @Html.Editor("City")
+    <br />
+    <br />
+
     @Html.Label("PhoneNumber", "Numar telefon")
     <br />
     @Html.Editor("PhoneNumber")
@@ -32,7 +39,11 @@
     @Html.Editor("ProfileDescription")
     <br />
     <br />
-
+    @Html.Label("Visibility", "Vizibilitatea profilului")
+    <br />
+    @Html.CheckBox("Visibility", false)
+    <br />
+    <br />
     <button class="btn btn-success" type="submit">Modifica profil</button>
 </form>
 

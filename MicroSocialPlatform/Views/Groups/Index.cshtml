@@ -63,9 +63,9 @@
         <a class="btn btn-info" href="/Groups/Show/@group.GroupId">Afisare grup</a>
 
         int count = 0;
-        foreach (var user in group.Users)
+        foreach (var reg in group.Registrations)
         {
-            if (ViewBag.User == user)
+            if (ViewBag.User == reg.User)
             {
                 <i class="glyphicon glyphicon-ok">Esti inscris in grup</i>
                 count = 1;
