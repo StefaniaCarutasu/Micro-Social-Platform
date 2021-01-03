@@ -16,7 +16,7 @@ namespace BDProiect.Controllers
         [Authorize(Roles = "User,Admin")]
         public ActionResult Index()
         {
-            var posts = db.Posts.Include("Group").Include("User");
+            var posts = db.Posts.Include("Group").Include("User").OrderByDescending(post=>post.Date);
             ViewBag.Posts = posts;
             if (TempData.ContainsKey("message"))
             {
