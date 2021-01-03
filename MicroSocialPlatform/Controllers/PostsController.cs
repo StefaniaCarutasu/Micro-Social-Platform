@@ -42,6 +42,13 @@ namespace BDProiect.Controllers
 
             ViewBag.UsersList = users;
 
+            var currentUser = User.Identity.GetUserId();
+            ViewBag.CurrentUser = currentUser;
+            var friends = (from fr in db.Friends
+                           where fr.User1_Id == currentUser
+                           select fr.User2_Id).ToList();
+            ViewBag.FriendsList = friends;
+
             return View();
         }
 
