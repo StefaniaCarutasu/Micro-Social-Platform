@@ -2,11 +2,38 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 
 body {
     padding-top: 50px;
     padding-bottom: 20px;
-    background-color: #C1C8E4;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    /*background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+        */
+}
+
+.panel {
+    padding: 0;
+}
+.panel-default > .panel-heading {
+    color: #333333;
+    background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+}
+
+.panel-body {
+    padding: 25px;
+    background: #c1c8e4;
+    background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+}
+
+.panel-footer {
+    padding: 10px 15px;
+    background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+    border-top: 1px solid #ddd;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -129,31 +156,23 @@ input[type=radio] {
 }
 
 @keyframes anim{
-    0%{
-        box-shadow: 0 0 0 0px rgba(0,98,90,0.2);
+    0% {
+        box-shadow: 0 0 0 0px #8860d033;
     }
     20% {
-        box-shadow: 0 0 0 20px rgba(0,98,90,0.2);
+        box-shadow: 0 0 0 20px #8860d033;
     }
     40% {
-        box-shadow: 0 0 0 20px rgba(0,98,90,0.2),
-                    0 0 0 40px rgba(0,98,90,0.2)
+        box-shadow: 0 0 0 20px #8860d033, 0 0 0 40px #8860d033
     }
     60% {
-        box-shadow: 0 0 0 10px rgba(0,98,90,0.2), 0 0 0 50px rgba(0,98,90,0.2), 0 0 0 30px rgba(0,98,90,0.2);
+        box-shadow: 0 0 0 10px #8860d033, 0 0 0 50px #8860d033, 0 0 0 30px #8860d033;
     }
     80% {
-        box-shadow: 0 0 0 0px rgba(0,98,90,0.2), 
-                    0 0 0 40px rgba(0,98,90,0.2),
-                    0 0 0 60px rgba(0,98,90,0.2),
-                    0 0 0 80px rgba(0,98,90,0.2);
+        box-shadow: 0 0 0 0px #8860d033, 0 0 0 40px #8860d033, 0 0 0 60px #8860d033, 0 0 0 80px #8860d033;
     }
     100% {
-        box-shadow: 0 0 0 20px rgba(0,98,90,0.2),
-                    0 0 0 40px rgba(0,98,90,0.2),
-                    0 0 0 60px rgba(0,98,90,0.2),
-                    0 0 0 90px rgba(0,98,90,0.2),
-                    0 0 0 120px rgba(0,98,90,0.2);
+        box-shadow: 0 0 0 20px #8860d033, 0 0 0 40px #8860d033, 0 0 0 60px #8860d033, 0 0 0 90px #8860d033, 0 0 0 120px #8860d033;
     }
 }
 /*Css pentru dropdown ul de la search*/

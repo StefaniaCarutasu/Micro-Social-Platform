@@ -48,6 +48,9 @@ namespace BDProiect.Controllers
                            where fr.User1_Id == currentUser
                            select fr.User2_Id).ToList();
             ViewBag.FriendsList = friends;
+            ViewBag.Friends = db.Friends;
+            ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
+            ViewBag.isAdmin = User.IsInRole("Admin");
 
             return View();
         }

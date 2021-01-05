@@ -21,7 +21,7 @@ namespace MicroSocialPlatform.Controllers
             ApplicationUser user = db.Users.Find(id);
             ViewBag.Posts = (from post in db.Posts
                              where post.UserId == id
-                             select post).ToList();
+                             select post).ToList().OrderByDescending(post => post.Date);
             ViewBag.ProfileDescription = user.ProfileDescription;
             ViewBag.UserId = id;
             ViewBag.User = user;
@@ -76,7 +76,7 @@ namespace MicroSocialPlatform.Controllers
             ApplicationUser user = db.Users.Find(id);
             ViewBag.Posts = (from post in db.Posts
                             where post.UserId == id
-                            select post).ToList();
+                            select post).ToList().OrderByDescending(post => post.Date);
             ViewBag.Profile = from profile in db.Profiles
                               where profile.UserId == id
                               select profile;
