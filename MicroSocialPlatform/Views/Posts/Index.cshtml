@@ -35,25 +35,22 @@
         </div>
     </div>
 </div>
+<br />
 
 @if (ViewBag.search != "" && ViewBag.CountUsers > 0)
 {
-<ul class="list-group pull-right dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        People
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        @foreach (var user in ViewBag.UsersList)
-        {
-<li class="dropdown-item">
-    <i class="glyphicon glyphicon-user"></i>
-    <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
-    <br />
-</li>}
+    <div class="dropdown pull-right">
+        <button class="dropbtn">Search results</button>
+        <div class="dropdown-content">
+            @foreach (var user in ViewBag.UsersList)
+            {
+            <li class="dropdown-item" style="list-style-type: none">
+                <a href="/Profiles/Show/@user.Id" class="glyphicon glyphicon-user"> @user.UserName </a>
+                <br />
+            </li>}
+        </div>
     </div>
-
-</ul>}
-
+}
 
 <br />
 <h2>Postari</h2>

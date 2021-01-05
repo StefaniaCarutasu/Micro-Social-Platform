@@ -32,22 +32,22 @@
         <!--end of col-->
     </div>
 </div>
+<br />
 @if (ViewBag.search != "" && ViewBag.CountUsers > 0)
 {
-    <ul class="list-group">
-        @foreach (var user in ViewBag.UsersList)
-        {
-            <li>
-                <i class="glyphicon glyphicon-user"></i>
-                <a href="/Profiles/Show/@user.Id"> @user.UserName </a>
-                <br />
-            </li>
-
-        }
-    </ul>
+    <div class="dropdown pull-right">
+        <button class="dropbtn">Search results</button>
+        <div class="dropdown-content">
+            @foreach (var user in ViewBag.UsersList)
+            {
+                <li class="dropdown-item" style="list-style-type: none">
+                    <a href="/Profiles/Show/@user.Id" class="glyphicon glyphicon-user"> @user.UserName </a>
+                    <br />
+                </li>}
+        </div>
+    </div>
 }
 
-<br />
 <br />
 <h2 style="text-align:center">@ViewBag.User.UserName</h2>
 <br />
