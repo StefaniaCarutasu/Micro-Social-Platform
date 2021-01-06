@@ -29,6 +29,9 @@ body {
     margin-bottom:auto;
 
 }
+#nou {
+    background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+}
 
 .panel {
     padding: 0;
@@ -41,12 +44,12 @@ body {
 .panel-body {
     padding: 25px;
     background: #c1c8e4;
-    background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+    
 }
 
 .panel-footer {
     padding: 10px 15px;
-    background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
+    background: #c1c8e4;
     border-top: 1px solid #ddd;
     border-bottom-right-radius: 3px;
     border-bottom-left-radius: 3px;
