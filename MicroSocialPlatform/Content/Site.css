@@ -168,6 +168,12 @@ input[type=radio] {
     border: 0;
 }
 
+
+input, select, textarea {
+    max-width: 280px;
+    border-radius: 7px;
+}
+
 a {
     color: #000000;
     text-decoration: none;
