@@ -27,6 +27,7 @@
                                 Search
                             </button>
                         </div>
+
                         <!--end of col-->
                     </div>
                 </form>
@@ -111,7 +112,15 @@
                             @if (post.GroupId == 1)
                             {
                                 <i class="glyphicon glyphicon-user"></i>
-                                <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
+                                if (post.User.Id == ViewBag.CurrentUser.Id)
+                                {
+                                    <a href="/Profiles/Index"> @post.User.UserName </a>
+                                }
+                                else
+                                {
+                                    <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
+                                }
+                                
                                 <br />
 
                                 TimeSpan dif = DateTime.Now - post.Date;

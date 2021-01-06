@@ -51,10 +51,23 @@
     </div>
 }
 
-<br />q
+<br />
 
 <br />
-<h2 style="text-align:center">@ViewBag.User.UserName</h2>
+<h2 style="text-align:center">
+    @ViewBag.User.UserName
+</h2>
+
+@if (ViewBag.User.Visibility == true)
+{
+    <i class="glyphicon glyphicon-globe" style="text-align:center; margin-left:auto;margin-right:auto;display:block"></i>
+
+}
+else
+{
+    <i class="glyphicon glyphicon-lock" style="text-align:center; margin-left:auto;margin-right:auto;display:block"></i>
+}
+
 <br />
 @if (ViewBag.ProfileDescription != null)
 {
@@ -87,6 +100,7 @@ else
             {
                 isFriend = 1;
 
+                <i class="glyphicon glyphicon-ok">Sunteti prieteni</i>
                 <form method="post" action="/Users/DeclineFriendship/@fr.FriendId">
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
                     <button class="btn btn-danger pull-right" type="submit">
@@ -139,7 +153,7 @@ else
                 </div>
                 <div class="col-lg-6 ">
                     <div class="panel panel-default">
-                        <div class="panel-body">
+                        <div class="panel-body" style="border-radius:20px 20px 0 0">
                             <br /><strong>@post.Content</strong>
                             <br />
                         </div>
@@ -147,6 +161,7 @@ else
                             <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
                         </div>
                     </div>
+
                 </div>
             </div>
         }
