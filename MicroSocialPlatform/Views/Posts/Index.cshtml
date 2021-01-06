@@ -1,59 +1,56 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 <h1>@ViewBag.Message</h1>
 
-<div class="container">
-    <div class="pull-right">
-        <br />
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8">
-                <form class="card card-sm" method="GET">
-                    <div class="card-body row no-gutters align-items-center">
-                        <div class="col-auto">
-                            <i class="fas fa-search h4 text-body"></i>
+<div class="pull-right" style="display: inline-flex">
+    <div class="container" style="float:left">
+        <div class="pull-right">
+            <br />
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <form class="card card-sm" method="GET">
+                        <div class="card-body row no-gutters align-items-center" style="display:inline-flex">
+                            <div class="col-auto" style="float:right; width:200px; height:100px">
+                                <i class="fas fa-search h4 text-body"></i>
+                            </div>
+                            <!--end of col-->
+                            <div class="col" style="float:right; width:200px">
+                                <input class="form-control form-control-lg form-controlborderless" type="text" name="search" style="height: 45px"
+                                       value="@ViewBag.SearchString"
+                                       placeholder="Search user">
+                            </div>
+                            <!--end of col-->
+                            <div class="col-auto" style="float:left; padding-left:3px">
+                                <button class="btn btn-lg btn-success"
+                                        type="submit">
+                                    Search
+                                </button>
+                            </div>
+                            <!--end of col-->
                         </div>
                         <!--end of col-->
-                        <div class="col">
-                            <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
-                                   value="@ViewBag.SearchString"
-                                   placeholder="Search user">
-                        </div>
-                        <!--end of col-->
-                        <div class="col-auto">
-                            <button class="btn btn-lg btn-success"
-                                    type="submit">
-                                Search
-                            </button>
-                        </div>
-
-                        <!--end of col-->
-                    </div>
+                </div>
                 </form>
             </div>
             <!--end of col-->
         </div>
+        <!--end of col-->
     </div>
+    @if (ViewBag.search != "" && ViewBag.CountUsers > 0)
+    {
+        <div class="dropdown pull-right" style="float: right; width: 200px; height: 30px; padding-top:35px; padding-left: 5px">
+            <button class="dropbtn">Search results</button>
+            <div class="dropdown-content">
+                @foreach (var user in ViewBag.UsersList)
+                {
+                    <li class="dropdown-item" style="list-style-type: none">
+                        <a href="/Profiles/Show/@user.Id" class="glyphicon glyphicon-user"> @user.UserName </a>
+                        <br />
+                    </li>}
+            </div>
+        </div>}
 </div>
-<br />
-
-@if (ViewBag.search != "" && ViewBag.CountUsers > 0)
-{
-    <div class="dropdown pull-right">
-        <button class="dropbtn">Search results</button>
-        <div class="dropdown-content">
-            @foreach (var user in ViewBag.UsersList)
-            {
-                <li class="dropdown-item" style="list-style-type: none">
-                    <a href="/Profiles/Show/@user.Id" class="glyphicon glyphicon-user"> @user.UserName </a>
-                    <br />
-                </li>}
-        </div>
-    </div>
-    ViewBag.CountUsers = 0;
-}
-
 
 <br />
 <hr />
@@ -65,7 +62,7 @@
         <div class="panel-body" style="border-radius:20px">
 
             <form method="post" action="/Posts/New" style="margin-left:auto; margin-right:auto; margin-top:20px;">
-                
+
                 @Html.Hidden("UserId")
 
                 @Html.Label("Content", "Scrie o postare")
@@ -79,7 +76,7 @@
             </form>
 
 
-</div>
+        </div>
     </div>
     <div class="col-sm-2"></div>
 </div>
@@ -104,98 +101,98 @@
     }
     if (isFriend == 1 || (post.User.Id == ViewBag.CurrentUser.Id) || ViewBag.isAdmin)
     {
-                <br />
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="panel panel-default col-sm-8">
-                        <div class="panel-heading">
-                            @if (post.GroupId == 1)
-                            {
-                                <i class="glyphicon glyphicon-user"></i>
-                                if (post.User.Id == ViewBag.CurrentUser.Id)
-                                {
-                                    <a href="/Profiles/Index"> @post.User.UserName </a>
-                                }
-                                else
-                                {
-                                    <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
-                                }
-                                
-                                <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="panel panel-default col-sm-8">
+                <div class="panel-heading">
+                    @if (post.GroupId == 1)
+                    {
+                        <i class="glyphicon glyphicon-user"></i>
+                        if (post.User.Id == ViewBag.CurrentUser.Id)
+                        {
+                            <a href="/Profiles/Index"> @post.User.UserName </a>
+                        }
+                        else
+                        {
+                            <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
+                        }
 
-                                TimeSpan dif = DateTime.Now - post.Date;
-                                if (dif.TotalDays > 1)
-                                {
-                                    var st = dif.TotalDays.ToString();
-                                    var index = st.LastIndexOf('.');
-                                    st = st.Substring(0, index);
-                                    <small style="margin-left: 20px;">@st d</small>
-                                }
-                                else if (dif.TotalHours > 1)
-                                {
-                                    var st = dif.TotalHours.ToString();
-                                    var index = st.LastIndexOf('.');
-                                    st = st.Substring(0, index);
+                        <br />
 
-                                    <small style="margin-left: 20px;">@st h</small>
-                                }
-                                else
-                                {
-                                    var st = dif.TotalMinutes.ToString();
-                                    var index = st.LastIndexOf('.');
-                                    st = st.Substring(0, index);
-                                    <small style="margin-left: 20px;">@st m</small>
-                                }
+                        TimeSpan dif = DateTime.Now - post.Date;
+                        if (dif.TotalDays > 1)
+                        {
+                            var st = dif.TotalDays.ToString();
+                            var index = st.LastIndexOf('.');
+                            st = st.Substring(0, index);
+                            <small style="margin-left: 20px;">@st d</small>
+                        }
+                        else if (dif.TotalHours > 1)
+                        {
+                            var st = dif.TotalHours.ToString();
+                            var index = st.LastIndexOf('.');
+                            st = st.Substring(0, index);
 
-                            }
-                            else
-                            {
-                                <i class="glyphicon glyphicon-user"></i>
-                                <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
-                                <br />
-                                TimeSpan dif = DateTime.Now - post.Date;
-                                if (dif.TotalDays > 1)
-                                {
-                                    var st = dif.TotalDays.ToString();
-                                    var index = st.LastIndexOf('.');
-                                    st = st.Substring(0, index);
-                                    <small style="margin-left: 20px;">@st d</small>
-                                }
-                                else if (dif.TotalHours > 1)
-                                {
-                                    var st = dif.TotalHours.ToString();
-                                    var index = st.LastIndexOf('.');
-                                    st = st.Substring(0, index);
+                            <small style="margin-left: 20px;">@st h</small>
+                        }
+                        else
+                        {
+                            var st = dif.TotalMinutes.ToString();
+                            var index = st.LastIndexOf('.');
+                            st = st.Substring(0, index);
+                            <small style="margin-left: 20px;">@st m</small>
+                        }
 
-                                    <small style="margin-left: 20px;">@st h</small>
-                                }
-                                else
-                                {
-                                    var st = dif.TotalMinutes.ToString();
-                                    var index = st.LastIndexOf('.');
-                                    st = st.Substring(0, index);
-                                    <small style="margin-left: 20px;">@st m</small>
-                                }
-                            }
-                        </div>
-                        <div class="panel-body">
-                            <br /><br /><strong>@post.Content</strong>
-                            <br />
-                            <!--<span class="label label-success">@post.Date</span>-->
-                            <br />
-                            <br />
+                    }
+                    else
+                    {
+                        <i class="glyphicon glyphicon-user"></i>
+                        <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
+                        <br />
+                        TimeSpan dif = DateTime.Now - post.Date;
+                        if (dif.TotalDays > 1)
+                        {
+                            var st = dif.TotalDays.ToString();
+                            var index = st.LastIndexOf('.');
+                            st = st.Substring(0, index);
+                            <small style="margin-left: 20px;">@st d</small>
+                        }
+                        else if (dif.TotalHours > 1)
+                        {
+                            var st = dif.TotalHours.ToString();
+                            var index = st.LastIndexOf('.');
+                            st = st.Substring(0, index);
 
-
-                        </div>
-                        <div class="panel-footer">
-                            <i class="glyphicon glyphicon-comment"></i>
-                            <a href="/Posts/Show/@post.PostId">Comenteaza</a>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-2"></div>
+                            <small style="margin-left: 20px;">@st h</small>
+                        }
+                        else
+                        {
+                            var st = dif.TotalMinutes.ToString();
+                            var index = st.LastIndexOf('.');
+                            st = st.Substring(0, index);
+                            <small style="margin-left: 20px;">@st m</small>
+                        }
+                    }
                 </div>
-        
+                <div class="panel-body">
+                    <br /><br /><strong>@post.Content</strong>
+                    <br />
+                    <!--<span class="label label-success">@post.Date</span>-->
+                    <br />
+                    <br />
+
+
+                </div>
+                <div class="panel-footer">
+                    <i class="glyphicon glyphicon-comment"></i>
+                    <a href="/Posts/Show/@post.PostId">Comenteaza</a>
+                </div>
+
+            </div>
+            <div class="col-sm-2"></div>
+        </div>
+
     }
-    
+
 }

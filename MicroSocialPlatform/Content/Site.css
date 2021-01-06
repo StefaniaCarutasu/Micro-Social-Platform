@@ -11,10 +11,14 @@ body {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     /*background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
-        */
+        
     background: linear-gradient(-45deg, rgb(145 117 197), rgba(193,200,228,10), rgba(132,206,235,10), #23d5ab);
     background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    animation: gradient 15s ease infinite;*/
+    background-image: url(/Content/Images/cool-background.svg);
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: top;
 }
 
 .panel {
