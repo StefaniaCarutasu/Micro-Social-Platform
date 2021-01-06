@@ -51,6 +51,7 @@ namespace BDProiect.Controllers
             ViewBag.Friends = db.Friends;
             ViewBag.CurrentUser = db.Users.Find(User.Identity.GetUserId());
             ViewBag.isAdmin = User.IsInRole("Admin");
+            
 
             return View();
         }

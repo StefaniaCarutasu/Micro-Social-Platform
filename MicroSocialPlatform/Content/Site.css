@@ -12,6 +12,9 @@ body {
     font-size: 16px;
     /*background: linear-gradient(100deg, rgb(145 117 197) 0%, rgba(193,200,228,10) 35%, rgba(132,206,235,10) 100%);
         */
+    background: linear-gradient(-45deg, rgb(145 117 197), rgba(193,200,228,10), rgba(132,206,235,10), #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
 }
 
 .panel {
@@ -107,9 +110,20 @@ input[type=radio] {
 }
 
 .panel {
-    box-shadow: 20px 20px 20px grey
+    box-shadow: 20px 20px 20px grey;
+    border-radius: 20px;
+
 }
 
+.panel-heading{
+    border-radius:20px 20px 0 0;
+    padding:20px;
+}
+
+.panel-footer{
+    border-radius:0 0 20px 20px;
+    padding:20px;
+}
 .nav {
     padding-left: 0;
     margin-bottom: 0;
@@ -124,6 +138,13 @@ input[type=radio] {
     float: left;
     margin-bottom: -1px;
 }
+
+a {
+    color: #edf0f2;
+    text-decoration: none;
+    font-size: 17px;
+}
+
 .badge {
     display: inline-block;
     min-width: 10px;
@@ -142,11 +163,11 @@ input[type=radio] {
 
 .box {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 35%;
+    left: 70%;
     transform: translate(-50%,-50%);
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     animation: anim 2.5s infinite linear;
     text-align: center;
@@ -155,24 +176,33 @@ input[type=radio] {
     align-items: center;
 }
 
+#desc {
+    top: 57%;
+    position: absolute;
+    left: 60%;
+    font-size: 40px;
+    font-family: 'Lobster',cursive;
+    text-decoration: underline;
+}
+
 @keyframes anim{
     0% {
         box-shadow: 0 0 0 0px #8860d033;
     }
     20% {
-        box-shadow: 0 0 0 20px #8860d033;
+        box-shadow: 0 0 0 10px #8860d033;
     }
     40% {
-        box-shadow: 0 0 0 20px #8860d033, 0 0 0 40px #8860d033
+        box-shadow: 0 0 0 10px #8860d033, 0 0 0 20px #8860d033
     }
     60% {
-        box-shadow: 0 0 0 10px #8860d033, 0 0 0 50px #8860d033, 0 0 0 30px #8860d033;
+        box-shadow: 0 0 0 5px #8860d033, 0 0 0 25px #8860d033, 0 0 0 15px #8860d033;
     }
     80% {
-        box-shadow: 0 0 0 0px #8860d033, 0 0 0 40px #8860d033, 0 0 0 60px #8860d033, 0 0 0 80px #8860d033;
+        box-shadow: 0 0 0 0px #8860d033, 0 0 0 20px #8860d033, 0 0 0 30px #8860d033, 0 0 0 40px #8860d033;
     }
     100% {
-        box-shadow: 0 0 0 20px #8860d033, 0 0 0 40px #8860d033, 0 0 0 60px #8860d033, 0 0 0 90px #8860d033, 0 0 0 120px #8860d033;
+        box-shadow: 0 0 0 10px #8860d033, 0 0 0 20px #8860d033, 0 0 0 30px #8860d033, 0 0 0 45px #8860d033, 0 0 0 60px #8860d033;
     }
 }
 /*Css pentru dropdown ul de la search*/
@@ -217,3 +247,18 @@ input[type=radio] {
 .dropdown:hover .dropbtn {
     background-color: #3e62bd;
 }
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+

@@ -60,24 +60,24 @@
 <div class="row">
     <div class="col-sm-2"></div>
     <div class="panel panel-default col-sm-8" style="text-align: center; width: 70%; margin-left: 15%; display:inline">
-        <div class="panel-body">
+        <div class="panel-body" style="border-radius:20px">
 
-            @using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
-            {
+            <form method="post" action="/Posts/New" style="margin-left:auto; margin-right:auto; margin-top:20px;">
+                
                 @Html.Hidden("UserId")
 
                 @Html.Label("Content", "Scrie o postare")
                 <br />
-                @Html.TextArea("Content", null, new { @class = "form-control" })
+                @Html.TextArea("Content", null, new { @class = "form-control", @style = "margin - left:auto; margin - right:auto; margin - top:20px; " })
                 <br />
                 @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
                 <br />
                 <br />
-                <button class="btn btn-success" type="submit" style=" background: #5680e9; border-color: #5680e9"> Adauga postare</button>
-            }
+                <button class="btn btn-success " type="submit" style=" background: #5680e9; border-color: #5680e9"><i class="glyphicon glyphicon-plus-sign" style="margin-right:3px"></i> Adauga postare</button>
+            </form>
 
 
-        </div>
+</div>
     </div>
     <div class="col-sm-2"></div>
 </div>
@@ -112,7 +112,30 @@
                                 <i class="glyphicon glyphicon-user"></i>
                                 <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a>
                                 <br />
-                                <small>@post.Date</small>
+
+                                TimeSpan dif = DateTime.Now - post.Date;
+                                if (dif.TotalDays > 1)
+                                {
+                                    var st = dif.TotalDays.ToString();
+                                    var index = st.LastIndexOf('.');
+                                    st = st.Substring(0, index);
+                                    <small style="margin-left: 20px;">@st d</small>
+                                }
+                                else if (dif.TotalHours > 1)
+                                {
+                                    var st = dif.TotalHours.ToString();
+                                    var index = st.LastIndexOf('.');
+                                    st = st.Substring(0, index);
+
+                                    <small style="margin-left: 20px;">@st h</small>
+                                }
+                                else
+                                {
+                                    var st = dif.TotalMinutes.ToString();
+                                    var index = st.LastIndexOf('.');
+                                    st = st.Substring(0, index);
+                                    <small style="margin-left: 20px;">@st m</small>
+                                }
 
                             }
                             else
@@ -120,7 +143,29 @@
                                 <i class="glyphicon glyphicon-user"></i>
                                 <a href="/Profiles/Show/@post.User.Id"> @post.User.UserName </a> <i> > <a href="/Groups/Show/@post.GroupId"> @post.Group.GroupName</a></i>
                                 <br />
-                                <small>@post.Date</small>
+                                TimeSpan dif = DateTime.Now - post.Date;
+                                if (dif.TotalDays > 1)
+                                {
+                                    var st = dif.TotalDays.ToString();
+                                    var index = st.LastIndexOf('.');
+                                    st = st.Substring(0, index);
+                                    <small style="margin-left: 20px;">@st d</small>
+                                }
+                                else if (dif.TotalHours > 1)
+                                {
+                                    var st = dif.TotalHours.ToString();
+                                    var index = st.LastIndexOf('.');
+                                    st = st.Substring(0, index);
+
+                                    <small style="margin-left: 20px;">@st h</small>
+                                }
+                                else
+                                {
+                                    var st = dif.TotalMinutes.ToString();
+                                    var index = st.LastIndexOf('.');
+                                    st = st.Substring(0, index);
+                                    <small style="margin-left: 20px;">@st m</small>
+                                }
                             }
                         </div>
                         <div class="panel-body">
