@@ -3,35 +3,40 @@
     ViewBag.Title = "Index";
 }
 <h1>@ViewBag.Message</h1>
+
 <div class="container">
-    <br />
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-10 col-lg-8">
-            <form class="card card-sm" method="GET">
-                <div class="card-body row no-gutters align-items-center">
-                    <div class="col-auto">
-                        <i class="fas fa-search h4 text-body"></i>
+    <div class="pull-right">
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <form class="card card-sm" method="GET">
+                    <div class="card-body row no-gutters align-items-center">
+                        <div class="col-auto">
+                            <i class="fas fa-search h4 text-body"></i>
+                        </div>
+                        <!--end of col-->
+                        <div class="col">
+                            <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
+                                   value="@ViewBag.SearchString"
+                                   placeholder="Search user">
+                        </div>
+                        <!--end of col-->
+                        <div class="col-auto">
+                            <button class="btn btn-lg btn-success"
+                                    type="submit">
+                                Search
+                            </button>
+                        </div>
+                        <!--end of col-->
                     </div>
-                    <!--end of col-->
-                    <div class="col">
-                        <input class="form-control form-control-lg form-controlborderless" type="text" name="search"
-                               value="@ViewBag.SearchString"
-                               placeholder="Search user">
-                    </div>
-                    <!--end of col-->
-                    <div class="col-auto">
-                        <button class="btn btn-lg btn-success"
-                                type="submit">
-                            Search
-                        </button>
-                    </div>
-                    <!--end of col-->
-                </div>
-            </form>
+                </form>
+            </div>
+            <!--end of col-->
         </div>
-        <!--end of col-->
     </div>
 </div>
+<br />
+
 @if (ViewBag.search != "" && ViewBag.CountUsers > 0)
 {
     <div class="dropdown pull-right">
@@ -46,6 +51,7 @@
         </div>
     </div>
 }
+
 <br />
 <h2>Grupuri</h2>
 
