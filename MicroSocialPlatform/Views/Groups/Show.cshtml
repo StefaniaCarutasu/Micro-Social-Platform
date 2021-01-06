@@ -67,93 +67,84 @@
     </div>
 </div>
 
-@if (ViewBag.UsersCount!=0)
+@if (ViewBag.UsersCount != 0)
 {
-    foreach (var reg in ViewBag.Group.Registrations)
+    foreach (var post in ViewBag.Group.Posts)
     {
-        if (ViewBag.isGroupOwner || ViewBag.isAdmin || (reg.User == ViewBag.User))
-        {
-            foreach (var post in ViewBag.Group.Posts)
-            {
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8" style="background-color:#c1c8e4; border-radius:30px 30px 30px 5px; padding:20px">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <strong>@post.User.UserName</strong>
-                                </div>
-                                <div class="panel-body">
-                                    <p>@post.Content</p>
-                                    <small class="pull-right">@post.Date</small>
-                                </div>
-
-                                <div class="panel-footer" style="padding-bottom:10px">
-                                    @if (ViewBag.isGroupOwner || post.UserId == ViewBag.UserId || ViewBag.isAdmin)
-                                    {
-                                        <div style="display: inline-block; float : left; margin-right: 15px">
-                                            <form method="post" action="/Posts/Delete/@post.PostId">
-                                                @Html.HttpMethodOverride(HttpVerbs.Delete)
-                                                <button class="glyphicon glyphicon-trash" style="border: none;
-                                                    background: transparent" type="submit"></button>
-                                            </form>
-                                        </div>
-                                    }
-
-                                    @if (post.UserId == ViewBag.UserId || ViewBag.isAdmin)
-                                    {
-                                        <div style="display: inline-block; float : left">
-                                            <a class="glyphicon glyphicon-pencil"
-                                               href="/Posts/Edit/@post.PostId"></a>
-                                        </div>
-
-
-                                        <div class="col-md-2"></div>
-                                    }
-                                    <div style="display:inline-block; float : right; margin-right:15px">
-                                        <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
-                                    </div>
-                                </div>
-                            </div>
-
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8" style=" border-radius:30px 30px 30px 5px; padding:20px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>@post.User.UserName</strong>
                         </div>
-                    </div>
-                </div>
-            
-            }
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="panel">
-                            @using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
+                        <div class="panel-body">
+                            <p>@post.Content</p>
+                            <small class="pull-right">@post.Date</small>
+                        </div>
+                        <div class="panel-footer" style="padding-bottom:40px">
+                            @if (ViewBag.isGroupOwner || post.UserId == ViewBag.UserId || ViewBag.isAdmin)
                             {
-                                @Html.Hidden("GroupId")
-
-                                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-                                <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
-                                @Html.Label("Content", "Continut postare")
-                                <br />
-                                @Html.TextArea("Content", null, new { @class = "form=control" })
-                                <br />
-                                @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
-                                <button class="btn btn-success " type="submit">
-                                    Adauga
-                                    postare
-                                </button>
+                                <div style="display: inline-block; float : left; margin-right: 15px">
+                                    <form method="post" action="/Posts/Delete/@post.PostId">
+                                        @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                        <button class="glyphicon glyphicon-trash" style="border: none;
+                            background: transparent" type="submit"></button>
+                                    </form>
+                                </div>
                             }
 
+                            @if (post.UserId == ViewBag.UserId || ViewBag.isAdmin)
+                            {
+                                <div style="display: inline-block; float : left">
+                                    <a class="glyphicon glyphicon-pencil"
+                                       href="/Posts/Edit/@post.PostId"></a>
+                                </div>
+
+
+                                <div class="col-md-2"></div>
+                            }
+                            <div style="display:inline-block; float : right; margin-right:15px">
+                                <a class="glyphicon glyphicon-comment" href="/Posts/Show/@post.PostId"></a>
+                            </div>
                         </div>
+
                     </div>
-                    <div class="col-md-2"></div>
                 </div>
             </div>
-
-            break;
-        }
+        </div>
+        <hr />
     }
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="panel">
+                    @using (Html.BeginForm(actionName: "New", controllerName: "Posts"))
+                    {
+                        @Html.Hidden("GroupId")
+
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <input type="hidden" name="GroupId" value="@ViewBag.Group.GroupId" />
+                        @Html.Label("Content", "Continut postare")
+                        <br />
+                        @Html.TextArea("Content", null, new { @class = "form=control" })
+                        <br />
+                        @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                        <button class="btn btn-success " type="submit">
+                            Adauga
+                            postare
+                        </button>
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
 
 }
 else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
@@ -201,7 +192,7 @@ else if (ViewBag.isGroupOwner || ViewBag.isAdmin)
 
                     </div>
                 </div>
-                </div>
+            </div>
         </div>
         <hr />
     }

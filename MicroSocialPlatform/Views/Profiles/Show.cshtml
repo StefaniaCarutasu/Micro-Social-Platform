@@ -52,31 +52,42 @@
         </div>}
 </div>
 
-<br />
+
 
 <br />
-<h2 style="text-align:center">
-    @ViewBag.User.UserName
-</h2>
+<h2 style="text-align:center; font-size:50px; color:black">@ViewBag.User.UserName</h2>
 
 @if (ViewBag.User.Visibility == true)
 {
-    <i class="glyphicon glyphicon-globe" style="text-align:center; margin-left:auto;margin-right:auto;display:block"></i>
+    <i class="glyphicon glyphicon-globe" style="text-align:center; color:black; margin-left:auto;margin-right:auto;display:block"></i>
 
 }
 else
 {
-    <i class="glyphicon glyphicon-lock" style="text-align:center; margin-left:auto;margin-right:auto;display:block"></i>
+    <i class="glyphicon glyphicon-lock" style="text-align:center;color:black; margin-left:auto;margin-right:auto;display:block"></i>
 }
 
 <br />
+
 @if (ViewBag.ProfileDescription != null)
 {
-    <h5 style="text-align:center"><strong>@ViewBag.ProfileDescription</strong></h5>
+    <h5 style="text-align:center; font-size:20px;color:black"><strong>~@ViewBag.ProfileDescription~</strong></h5>
     <br />
+    if (ViewBag.User.Id == ViewBag.CurrentUser.Id)
+    {
+        <a class="glyphicon glyphicon-edit" href="/Profiles/Edit/" style="text-align:center;display:block"> Editeaza profil!</a>
+    }
+
 
 }
-<hr />
+else if ((ViewBag.User.Id == ViewBag.CurrentUser.Id))
+{
+    <a class="glyphicon glyphicon-edit " href="/Profiles/Edit/" style="text-align:center;display:block"> Adauga descriere</a>
+    <br />
+    <br />
+}
+<br />
+<br />
 
 
 @if (ViewBag.FriendCount == 0 && (ViewBag.User.Id != ViewBag.CurrentUser.Id))
@@ -101,7 +112,7 @@ else
             {
                 isFriend = 1;
 
-            
+
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background: #c1c8e4;height: 50px;width: 200px;font-size: 20px;">
                         <i class="glyphicon glyphicon-ok">Sunteti prieteni</i>
@@ -114,7 +125,7 @@ else
                                 Sterge prieten
                             </button>
                         </form>
-                    
+
                     </div>
                 </div>
                 <br />
