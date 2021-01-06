@@ -62,15 +62,19 @@
         <div class="panel-body" style="border-radius:20px">
 
             <form method="post" action="/Posts/New" style="margin-left:auto; margin-right:auto; margin-top:20px;">
+            <form method="post" action="/Posts/New" style="margin-top:20px; padding-left: inherit; padding-right: inherit;">
 
                 @Html.Hidden("UserId")
-
                 @Html.Label("Content", "Scrie o postare")
                 <br />
-                @Html.TextArea("Content", null, new { @class = "form-control", @style = "margin - left:auto; margin - right:auto; margin - top:20px; " })
                 <br />
-                @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
-                <br />
+                <div style="align-content:center; padding-left: 210px; width:1000px">
+
+                    @Html.TextArea("Content", null, new { @class = "form-control", @style = "margin - left:auto; margin - right:auto; margin - top:20px; " })
+                    <br />
+                    @Html.ValidationMessage("Content", "", new { @class = "text-danger" })
+                </div>
+
                 <br />
                 <button class="btn btn-success " type="submit" style=" background: #5680e9; border-color: #5680e9"><i class="glyphicon glyphicon-plus-sign" style="margin-right:3px"></i> Adauga postare</button>
             </form>
