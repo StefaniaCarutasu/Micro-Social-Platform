@@ -61,7 +61,6 @@
     <div class="panel panel-default col-sm-8"  style="text-align: center; width: 70%; margin-left: 15%; display:inline">
         <div class="panel-body" id="nou" style="border-radius:20px">
 
-            <form method="post" action="/Posts/New" style="margin-left:auto; margin-right:auto; margin-top:20px;">
             <form method="post" action="/Posts/New" style="margin-top:20px; padding-left: inherit; padding-right: inherit;">
 
                 @Html.Hidden("UserId")
@@ -129,23 +128,32 @@
                         {
                             var st = dif.TotalDays.ToString();
                             var index = st.LastIndexOf('.');
-                            st = st.Substring(0, index);
-                            <small style="margin-left: 20px;">@st d</small>
+                            if (index >= 0)
+                            {
+                                st = st.Substring(0, index);
+                                <small style="margin-left: 20px;">@st d</small>
+                            }
+
                         }
                         else if (dif.TotalHours > 1)
                         {
                             var st = dif.TotalHours.ToString();
                             var index = st.LastIndexOf('.');
-                            st = st.Substring(0, index);
-
-                            <small style="margin-left: 20px;">@st h</small>
+                            if (index >= 0)
+                            {
+                                st = st.Substring(0, index);
+                                <small style="margin-left: 20px;">@st d</small>
+                            }
                         }
                         else
                         {
                             var st = dif.TotalMinutes.ToString();
                             var index = st.LastIndexOf('.');
-                            st = st.Substring(0, index);
-                            <small style="margin-left: 20px;">@st m</small>
+                            if (index >= 0)
+                            {
+                                st = st.Substring(0, index);
+                                <small style="margin-left: 20px;">@st d</small>
+                            }
                         }
 
                     }
@@ -159,23 +167,31 @@
                         {
                             var st = dif.TotalDays.ToString();
                             var index = st.LastIndexOf('.');
-                            st = st.Substring(0, index);
-                            <small style="margin-left: 20px;">@st d</small>
+                            if (index >= 0)
+                            {
+                                st = st.Substring(0, index);
+                                <small style="margin-left: 20px;">@st d</small>
+                            }
                         }
                         else if (dif.TotalHours > 1)
                         {
                             var st = dif.TotalHours.ToString();
                             var index = st.LastIndexOf('.');
-                            st = st.Substring(0, index);
-
-                            <small style="margin-left: 20px;">@st h</small>
+                            if (index >= 0)
+                            {
+                                st = st.Substring(0, index);
+                                <small style="margin-left: 20px;">@st d</small>
+                            }
                         }
                         else
                         {
                             var st = dif.TotalMinutes.ToString();
                             var index = st.LastIndexOf('.');
-                            st = st.Substring(0, index);
-                            <small style="margin-left: 20px;">@st m</small>
+                            if (index >= 0)
+                            {
+                                st = st.Substring(0, index);
+                                <small style="margin-left: 20px;">@st d</small>
+                            }
                         }
                     }
                 </div>
